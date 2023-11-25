@@ -95,9 +95,10 @@
 
 
         <button type="submit"
-            class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-            Soumettre
+        class="bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:shadow-outline-blue active:bg-gray-500">
+        Soumettre
         </button>
+
         </form>
     </tbody>
 </table>

@@ -26,39 +26,59 @@
     <section class="flex flex-col">
       <h1 class="text-4xl text-center font-bold">DashBoard</h1>
       <!-- start statistique section -->
-
       <section class="  flex flex-wrap justify-center gap-2 py-7  ">
+    <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "peoplepertask_data";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die('La connexion a échoué : ' . $conn->connect_error);
+    }
+
+    // Nombre total de projets
+    $projectCountQuery = "SELECT COUNT(*) as totalProjects FROM projects";
+    $projectResult = $conn->query($projectCountQuery);
+    $projectCount = $projectResult->fetch_assoc()['totalProjects'];
+
+    // Nombre total de freelancers
+    $freelancerCountQuery = "SELECT COUNT(*) as totalFreelancers FROM freelancers";
+    $freelancerResult = $conn->query($freelancerCountQuery);
+    $freelancerCount = $freelancerResult->fetch_assoc()['totalFreelancers'];
+    ?>
+
+    <div class="flex gap-32  p-4 rounded-md shadow-md">
+        
         <div class="shadow-lg text-center w-2/3 sm:w-2/5 bg-gray-50 flex flex-col gap-2 py-3 rounded-lg dark:bg-gray-600 dark:text-white">
-          <h4 class="  text-xl font-semibold "> Product Sold</h4>
-          <p class="font-bold text-4xl">13.8k</p>
+          <h4 class="  text-xl font-semibold p-4"> Projets </h4>
+          <p class="font-bold text-4xl"><?php echo $projectCount; ?></p>
           <span class="text-custom-green">
             +7%
           </span>
         </div>
+        
         <div class="shadow-lg text-center w-2/3 sm:w-2/5 bg-gray-50 flex flex-col gap-2 py-3 rounded-lg dark:bg-gray-600 dark:text-white">
-          <h4 class="  text-xl font-semibold "> Total Profit</h4>
-          <p class="font-bold text-4xl">$1,237K</p>
+          <h4 class="  text-xl font-semibold  p-4"> Freelancers </h4>
+          <p class="font-bold text-4xl"><?php echo $freelancerCount; ?></p>
           <span class="text-custom-green">
-            +0.007%
+            +30%
           </span>
         </div>
         <div class="shadow-lg text-center w-2/3 sm:w-2/5 bg-gray-50 flex flex-col gap-2 py-3 rounded-lg dark:bg-gray-600 dark:text-white">
-          <h4 class="  text-xl font-semibold "> No. of Claims</h4>
+          <h4 class="  text-xl font-semibold p-4"> No. of Claims</h4>
           <p class="font-bold text-4xl">1.3M</p>
           <span class="text-custom-green">
             +10%
           </span>
         </div>
-        <div class="shadow-lg text-center  w-2/3 sm:w-2/5 bg-gray-50 flex flex-col  gap-2 py-3 rounded-lg dark:bg-gray-600 dark:text-white">
-          <h4 class="  text-xl font-semibold "> New Customers</h4>
-          <p class="font-bold text-4xl">1,237</p>
-          <span class="text-red-600">
-            -0.08%
-          </span>
-        </div>
+    </div>
+</section>
+<!-- end statistique section -->
 
-      </section>
-      <!-- end statistique section -->
+
 
       <!-- start testimonial section -->
       <div class="flex-grow flex flex-col pb-10">
