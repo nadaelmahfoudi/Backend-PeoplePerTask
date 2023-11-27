@@ -34,6 +34,7 @@
         // Process the form data
         if (isset($_POST["categoryName"])) {
             $categoryName = $_POST["categoryName"];
+            
 
             // You should use prepared statements to prevent SQL injection
             $stmt = $conn->prepare("INSERT INTO categories (categoryName) VALUES (?)");
@@ -45,19 +46,20 @@
     }
 
     // Fetch categories from the database
-    $sql = "SELECT categoryName FROM categories";
+    
+    $sql = "SELECT  distinct P.title, C.categoryName FROM categories C inner JOIN projects P ON C.id = P.categorie_id";
     $result = $conn->query($sql);
     ?>
-
+    
     <section class="flex flex-col py-8 flex-grow dark:bg-gray-900 dark:text-white">
         <h1 class="text-3xl text-center font-bold">Category Management</h1>
         <div class="flex p-4 gap-6 justify-center flex-col">
             <div class="shadow-sm rounded-lg gap-2 bg-slate-500 p-5  flex flex-col items-center">
-                <h2 class="text-xl font-semibold text-white">add category</h2>
+                <h2 class="text-xl font-semibold text-white">Add Category</h2>
                 <div class="flex   gap-4">
                     <form method="post">
                         <input name="categoryName" class="rounded-md p-1 border-2 dark:text-black" type="text"
-                            placeholder="name of category" required>
+                            placeholder="Name of category" required>
                         <button type="submit" class="bg-gray-50 p-2 rounded-md cursor-pointer dark:text-black">ADD</button>
                     </form>
                 </div>
@@ -65,21 +67,21 @@
             <div id="parent_of_categories" class="flex flex-col border">
                 <ul class="flex text-center text-white items-center bg-slate-500 dark:bg-gray-800 dark:text-white">
                     <li class="w-2/3 text-xs md:text-lg p-4">NAME OF CATEGORY</li>
-                    <li class="w-1/3 text-xs md:text-lg p-4">&nbsp;</li>
+                    <li class="w-1/3 text-xs md:text-lg p-4">PROJECT TITLE</li>
                 </ul>
                 <?php
-                // Display categories from the database
+                // Display categories and associated project titles from the database
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo '<ul class="flex text-center text-white items-center bg-slate-500 dark:bg-gray-800 dark:text-white">
                                 <li class="w-2/3 text-xs md:text-lg p-4">' . $row["categoryName"] . '</li>
-                                <li class="w-1/3 text-xs md:text-lg p-4">&nbsp;</li>
+                                <li class="w-1/3 text-xs md:text-lg p-4">' . $row["title"] . '</li>
                               </ul>';
                     }
                 } else {
                     echo "<p>No categories found</p>";
                 }
-
+    
                 $conn->close();
                 ?>
             </div>

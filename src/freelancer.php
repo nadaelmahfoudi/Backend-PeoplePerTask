@@ -8,6 +8,12 @@
     <link href="../dist/output.css" rel="stylesheet">
     
 </head>
+<!-- <style>
+    .freelancer_section{
+        display : flex;
+        justify-content : center;
+    }
+</style> -->
 
 <body class="overflow-x-hidden  dark:bg-gray-900 dark:text-white">
     <!-- header -->
@@ -21,15 +27,15 @@
        ?>
     <!-- end side bar -->
 
-<div class="form flex flex-col ">
-    <h1 class="text-black text-center text-4xl ">Liste des Freelancers</h1>
+<div class="freelancer_section w-auto flex flex-col ">
+    <h1 class="text-black dark:text-white text-center text-4xl ">Liste des Freelancers</h1>
 
 <table class="table min-w-full bg-gray-600 border border-gray-300">
     <thead>
         <tr>
-            <th class="py-2 px-4 border-b text-black">Freelancer Name</th>
-            <th class="py-2 px-4 border-b text-black">Skill</th>
-            <th class="py-2 px-4 border-b text-black">Montant</th>
+            <th class="py-2 px-4 border-b dark:text-white">Freelancer Name</th>
+            <th class="py-2 px-4 border-b dark:text-white">Skill</th>
+            <th class="py-2 px-4 border-b dark:text-white">Montant</th>
         </tr>
     </thead>
     <tbody>
@@ -52,9 +58,9 @@
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>";
-                    echo "<td class='py-2 px-4 border-b text-white'>" . $row["freelancer_name"] . "</td>";
-                    echo "<td class='py-2 px-4 border-b text-white'>" . $row["skill"] . "</td>";
-                    echo "<td class='py-2 px-4 border-b text-white'>" . $row["salary"] . "</td>";
+                    echo "<td class='py-2 px-4 border-b dark:text-white'>" . $row["freelancer_name"] . "</td>";
+                    echo "<td class='py-2 px-4 border-b dark:text-white'>" . $row["skill"] . "</td>";
+                    echo "<td class='py-2 px-4 border-b dark:text-white'>" . $row["salary"] . "</td>";
                     
                    
                     echo "<td class='py-2 px-4 border-b text-black'>
