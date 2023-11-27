@@ -10,7 +10,7 @@
         $stmt = $conn->prepare("INSERT INTO projects (title, description) VALUES (?, ?)");
         $stmt->bind_param("ss", $title, $description);
         $stmt->execute();
-        echo "projet créé avec succès";
+        header("Location: inbox.php");
         $stmt->close();
         $conn->close();
     }

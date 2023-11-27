@@ -49,7 +49,7 @@
                         die('La connexion a échoué : '.$conn->connect_error);
                     }
 
-                    $sql = "SELECT title, description FROM projects";
+                    $sql = "SELECT id, title, description FROM projects";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
@@ -64,11 +64,15 @@
                                         </div>
                                         
                                         <span class="py-1">
-                                            <span class="text-red-500 ml-4 cursor-pointer btn_dele_message_inbox text-xs sm:text-sm">DELE</span>
+                                        <form method="post" action="delete_projet.php" onsubmit="return confirmDelete();">
+                                                <input type="hidden" name="projet_id" value="' . $row["id"] . '">
+                                                <button type="submit" class="text-red-500 ml-4 cursor-pointer btn_dele_message_inbox text-xs sm:text-sm">DELETE</button>
+                                            </form>
                                             <span class="text-blue-600 ml-4 cursor-pointer btn_open_model_replay_inbox text-xs sm:text-sm">EDIT</span>
                                         </span>
-                                    </div>
+                                    </div>y
                                 </li>';
+
                         }
                     } else {
                         echo "<p>Aucun message trouvé</p>";
@@ -78,8 +82,8 @@
                 ?>
                 <li class="title flex flex-col border-b-2 py-3  h-20  sm:h-14 overflow-y-hidden px-2 ">
                     <div class="w-full flex gap-5 items-center">
-                        <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
-                            onclick="openModal('add')">Ajouter</button>
+                        <button type="button" class="bg-custom-green text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+                            onclick="openModal('add')">ADD</button>
 
                         <div id="myModal" class="modal fixed hidden inset-0 z-50 overflow-auto bg-black bg-opacity-50">
                             <div class="modal-container mx-auto my-10 p-5 bg-gray-100 border rounded-lg max-w-md">
@@ -143,6 +147,13 @@
             var modal = document.getElementById("myModal");
             modal.classList.add("hidden");
         }
+
+
+        function confirmDelete() {
+            return confirm("Voulez-vous vraiment supprimer ce Projet?");
+        }
+
+
     </script>
     </body>
 

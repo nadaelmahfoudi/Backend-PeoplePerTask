@@ -24,7 +24,7 @@
 <div class="form flex flex-col ">
     <h1 class="text-black text-center text-4xl ">Liste des Freelancers</h1>
 
-<table class="table min-w-full bg-white border border-gray-300">
+<table class="table min-w-full bg-gray-600 border border-gray-300">
     <thead>
         <tr>
             <th class="py-2 px-4 border-b text-black">Freelancer Name</th>
@@ -46,25 +46,36 @@
                 die('La connexion a échoué : '.$conn->connect_error);
             }
 
-            $sql = "SELECT freelancer_name, skill, salary FROM freelancers";
+            $sql = "SELECT id, freelancer_name, skill, salary FROM freelancers";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>";
-                    echo "<td class='py-2 px-4 border-b text-black'>" . $row["freelancer_name"] . "</td>";
-                    echo "<td class='py-2 px-4 border-b text-black'>" . $row["skill"] . "</td>";
-                    echo "<td class='py-2 px-4 border-b text-black'>" . $row["salary"] . "</td>";
+                    echo "<td class='py-2 px-4 border-b text-white'>" . $row["freelancer_name"] . "</td>";
+                    echo "<td class='py-2 px-4 border-b text-white'>" . $row["skill"] . "</td>";
+                    echo "<td class='py-2 px-4 border-b text-white'>" . $row["salary"] . "</td>";
+                    
+                   
+                    echo "<td class='py-2 px-4 border-b text-black'>
+                    <span class='py-1'>
+                      <form method='post' action='delete_freelancer.php' onsubmit='return confirmDelete(" . $row["id"] . ");'>
+                        <input type='hidden' name='freelancer_id' value='" . $row["id"] . "'>
+                        <button type='submit' class='text-red-500 ml-4 cursor-pointer btn_dele_message_inbox text-xs sm:text-sm'>DELETE</button>
+                      </form>
+                      <span class='text-blue-600 ml-4 cursor-pointer btn_open_model_replay_inbox text-xs sm:text-sm' onclick='editFreelancer(" . $row["id"] . ")'>EDIT</span>
+                    </span>
+                 </td>";
+                    
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='3' class='py-2 px-4 text-center border-b'>Aucun résultat trouvé</td></tr>";
+                echo "<tr><td colspan='5' class='py-2 px-4 text-center border-b'>Aucun résultat trouvé</td></tr>";
             }
-
             $conn->close();
         ?>
-        <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800" 
-        onclick="openModal('add')">Ajouter</button>
+        <button type="button" class="bg-custom-green text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800" 
+        onclick="openModal('add')">ADD</button>
 
 
         <div id="myModal" class="modal fixed hidden inset-0 z-50 overflow-auto bg-black bg-opacity-50">
@@ -113,6 +124,10 @@
         var modal = document.getElementById("myModal");
         modal.classList.add("hidden");
     }
+
+    function confirmDelete() {
+            return confirm("Voulez-vous vraiment supprimer ce freelancer?");
+        }
 </script>
 
 

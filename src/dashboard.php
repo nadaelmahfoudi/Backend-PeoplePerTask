@@ -83,40 +83,54 @@
       <!-- start testimonial section -->
       <div class="flex-grow flex flex-col pb-10">
 
-    <section class=" testimonial_section flex flex-col items-center justify-center ">
-      <h1 class="text-4xl text-center font-bold mt-10">Testimonials</h1>
+    <!-- start testimonial section -->
+<div class="flex-grow flex flex-col pb-10">
 
-      <?php
-      // Database connection
-      $servername = "localhost";
-      $username = "root";
-      $password = "";
-      $dbname = "peoplepertask_data";
+<section class="testimonial_section flex flex-col items-center justify-center">
+    <h1 class="text-4xl text-center font-bold mt-10">Testimonials</h1>
 
-      $conn = new mysqli($servername, $username, $password, $dbname);
+    <?php
+    // Database connection
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "peoplepertask_data";
 
-      if ($conn->connect_error) {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
         die('La connexion a échoué : ' . $conn->connect_error);
-      }
+    }
 
-      // Fetch testimonials from the database
-      $sql = "SELECT comment FROM testimonials";
-      $result = $conn->query($sql);
+    // Fetch testimonials from the database
+    $sql = "SELECT id, comment FROM testimonials";
+    $result = $conn->query($sql);
 
-      // Display testimonials from the database
-      if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
+    // Display testimonials from the database
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
           echo '<div class="shadow-lg text-center w-2/3 sm:w-2/5 bg-gray-50 flex flex-col gap-12 py-3 rounded-lg dark:bg-gray-600 dark:text-white mb-12">
-                    <p class="font-semibold text-lg">' . $row["comment"] . '</p>
-                 </div>';
-        }
-      } else {
-        echo "<p>No testimonials found</p>";
+                  <p class="font-semibold text-lg">' . $row["comment"] . '</p>
+                  <form method="post" action="delete_testimonial.php" onsubmit="return confirmDelete();">
+                      <input type="hidden" name="testimonial_id" value="' . $row["id"] . '">
+                      <button type="submit" class="bg-custom-green text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:shadow-outline-gray active:bg-gray-800">
+                          Delete
+                      </button>
+                  </form>
+                </div>';
       }
+  } else {
+      echo "<p>No testimonials found</p>";
+  }
 
-      $conn->close();
-      ?>
-    </section>
+    $conn->close();
+    ?>
+</section>
+
+
+
+</div>
+
   </div>
 
 
@@ -124,7 +138,11 @@
 
   </div>
 
-
+  <script>
+        function confirmDelete() {
+            return confirm("Voulez-vous vraiment supprimer ce témoignage?");
+        }
+    </script>
 
   <script src="../javascript/jquery.js"></script>
   <script src="../javascript/dashboard.js"></script>

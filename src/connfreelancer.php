@@ -12,7 +12,7 @@
       $stmt = $conn->prepare("INSERT INTO freelancers (freelancer_name, skill, salary) VALUES (?, ?, ?)");
       $stmt->bind_param("sss", $freelancer_name, $skill, $salary);
       $stmt->execute();
-      echo "Inscription réussie";
+      header("Location: freelancer.php");
       $stmt->close();
       $conn->close();
    }
