@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE freelancers SET skill='$edit_skill', salary='$edit_salary' WHERE freelancer_name='$edit_freelancer_name'";
 
         if ($conn->query($sql) === TRUE) {
-            header("Location: freelancer.php"); // Redirection après la modification
+            header("Location: freelancer.php");
             exit();
         } else {
             echo "Erreur lors de la modification : " . $conn->error;

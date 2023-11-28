@@ -17,7 +17,7 @@
     <!-- end side bar -->
 
     <?php
-    // Database connection
+    
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -29,14 +29,13 @@
         die('La connexion a échoué : ' . $conn->connect_error);
     }
 
-    // Check if the form is submitted
+  
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Process the form data
+      
         if (isset($_POST["categoryName"])) {
             $categoryName = $_POST["categoryName"];
             
 
-            // You should use prepared statements to prevent SQL injection
             $stmt = $conn->prepare("INSERT INTO categories (categoryName) VALUES (?)");
             $stmt->bind_param("s", $categoryName);
             $stmt->execute();
@@ -45,7 +44,7 @@
         }
     }
 
-    // Fetch categories from the database
+  
     
     $sql = "SELECT  distinct P.title, C.categoryName FROM categories C inner JOIN projects P ON C.id = P.categorie_id";
     $result = $conn->query($sql);
@@ -70,7 +69,7 @@
                     <li class="w-1/3 text-xs md:text-lg p-4">PROJECT TITLE</li>
                 </ul>
                 <?php
-                // Display categories and associated project titles from the database
+                
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo '<ul class="flex text-center text-white items-center bg-slate-500 dark:bg-gray-800 dark:text-white">

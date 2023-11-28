@@ -8,12 +8,12 @@
     <link href="../dist/output.css" rel="stylesheet">
     
 </head>
-<!-- <style>
-    .freelancer_section{
+<style>
+    .freelancer_section {
         display : flex;
         justify-content : center;
     }
-</style> -->
+</style>
 
 <body class="overflow-x-hidden  dark:bg-gray-900 dark:text-white">
     <!-- header -->
@@ -120,7 +120,7 @@
     </tbody>
 </table>
         </div>
-        <script>
+<script>
     function openModal() {
         var modal = document.getElementById("myModal");
         modal.classList.remove("hidden");
