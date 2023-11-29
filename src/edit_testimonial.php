@@ -9,11 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["newComment"], $_POST[
     } else {
         $stmt = $conn->prepare("UPDATE testimonials SET comment = ? WHERE id = ?");
         $stmt->bind_param("si", $new_comment, $testimonial_id);
-        $stmt->execute();
+        echo $stmt->execute();
         $stmt->close();
         $conn->close();
-        
-        // Rediriger vers la page de tableau de bord avec les nouvelles données
+       
         header("Location: dashboard.php");
         exit();
     }
