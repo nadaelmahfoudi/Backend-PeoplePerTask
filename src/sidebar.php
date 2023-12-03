@@ -43,8 +43,8 @@
                             </defs>
                         </svg>
                     </span>
-                    <span class="text-black text-2xl dark:text-custom-green font-bold self-center ">People<span
-                            class="text-gray-50 ">Per</span>Task
+                    <span class="text-black text-2xl dark:text-custom-green font-bold self-center "><a href="index.php" >People<span
+                            class="text-gray-50 ">Per</span>Task</a>
                     </span>
                 </div>
                 <ul class="h-5/6 flex flex-col gap-1 mt-2 space-y-1 font-medium">

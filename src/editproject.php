@@ -2,17 +2,15 @@
     include ("connection_data.php");
     $id = $_GET["id"];
     if(isset($_POST["submit"])){
-        $freelancer_name = $_POST["freelancer_name"];
-        $skill = $_POST["skill"];
-        $salary = $_POST["salary"];
+        $title = $_POST["title"];
+        $description = $_POST["description"];
 
-        $sql = "UPDATE `freelancers` SET `freelancer_name`='$freelancer_name',
-        `skill`='$skill',`salary`='$salary' WHERE id= $id";
+        $sql = "UPDATE `projects` SET `title`='$title', `description`='$description' WHERE id= $id";
 
          $result = mysqli_query($conn , $sql);
          if($result){
-            header("Location: freelancer.php");
-         }else{
+            header("Location: inbox.php");
+         } else {
             echo "Failed: " . mysqli_error($conn);
          }
     }
@@ -34,12 +32,12 @@
      <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: black" >Crud</nav>
     <div class="container">
         <div class="text-center mb-4">
-            <h3>Edit Freelancer Information</h3>
+            <h3>Edit Project Information</h3>
             <p class="text-muted">Click update after changing information!</p>
         </div>
     <?php  
     $id = $_GET["id"];
-    $sql = "SELECT * FROM freelancers WHERE id = $id LIMIT 1";
+    $sql = "SELECT * FROM projects WHERE id = $id LIMIT 1";
     $result = mysqli_query($conn , $sql);
     $row = mysqli_fetch_assoc($result);
     ?>
@@ -47,20 +45,16 @@
         <div class="container d-flex justify-content-center">
             <form action="" method="POST" style="width:50vw; min-width:300px">
                 <div class="mb-3">
-                    <label for="form-label">Freelancer Name:</label>
-                    <input type="text" class="form-control" name="freelancer_name" value="<?php echo $row["freelancer_name"]; ?>">
+                    <label for="form-label">Project Title:</label>
+                    <input type="text" class="form-control" name="title" value="<?php echo $row["title"]; ?>">
                 </div>
                 <div class="mb-3" >
-                    <label for="form-label">Skill:</label>
-                    <input type="text" class="form-control" name="skill" value="<?php echo $row["skill"]; ?>">
-                </div>
-                <div class="mb-3" >
-                    <label for="form-label">Salary:</label>
-                    <input type="text" class="form-control" name="salary" value="<?php echo $row["salary"]; ?>">
+                    <label for="form-label">Description:</label>
+                    <input type="text" class="form-control" name="description" value="<?php echo $row["description"]; ?>">
                 </div>
                 <div>
                     <button type="submit" class="btn btn-success" name="submit" >Save Changes</button>
-                    <a href="freelancer.php" class="btn btn-danger">Cancel</a>
+                    <a href="inbox.php" class="btn btn-danger">Cancel</a>
                 </div>
             </form>
         </div>

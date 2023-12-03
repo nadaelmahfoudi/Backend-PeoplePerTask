@@ -1,3 +1,6 @@
+<?php 
+include_once'session.php';
+?>
 <!doctype html>
 <html lang="en" class="scroll-smooth">
 
@@ -58,19 +61,35 @@
           </a>
         </li>
       </ul>
-      <div class=" lg:w-auto  w-3/4 flex flex-col lg:flex-row  justify-center gap-4      self-center  text-1xl  ">
+  
+        <?php
+
+
+if (!isset($_SESSION['name'])):
+?>
+<div class=" lg:w-auto  w-3/4 flex flex-col lg:flex-row  justify-center gap-4      self-center  text-1xl  ">
         <a href="./sign_in.php"
           class="text-custom-green  text-center border-solid border-2 border-custom-green rounded-md  px-3">
           <span>
-            Log in
+            Sign Up
           </span>
         </a>
-        <a href="./sign_in.php" class="bg-custom-green rounded-md px-3 text-center text-white font-semibold">
+        <a href="./login.php" class="bg-custom-green rounded-md px-3 text-center text-white font-semibold">
           <span>
-            Register
+            Login
           </span>
         </a>
       </div>
+
+<?php else: ?>
+  <p>Welcome, <?php echo $_SESSION['name']; ?></p>
+  <a href="./logout.php" class="bg-custom-green rounded-md px-3 text-center text-white font-semibold">
+          <span>
+            Log out 
+          </span>
+        </a>
+<?php endif; ?>
+      
     </nav>
 
     <!-- Theme buttons -->

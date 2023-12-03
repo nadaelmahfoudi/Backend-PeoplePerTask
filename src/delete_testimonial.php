@@ -1,26 +1,24 @@
-<?php
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "peoplepertask_data";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['testimonial_id'])) {
-    $testimonialId = $_POST['testimonial_id'];
-
-   
-    $deleteSql = "DELETE FROM testimonials WHERE id = $testimonialId";
-
-    if ($conn->query($deleteSql) === TRUE) {
+<?php 
+    include ("connection_data.php");
+    
+    // Vérifie si l'ID est passé dans l'URL
+    if(isset($_POST["submit"])){
+        $testimonial_id = $_POST["testimonial_id"];
         
-        header("Location: dashboard.php");
-        exit(); 
+        // Requête SQL pour supprimer le témoignage avec l'ID spécifié
+        $sql = "DELETE FROM testimonials WHERE id = $testimonial_id";
+        
+        // Exécute la requête
+        $result = mysqli_query($conn, $sql);
+        
+        // Vérifie si la suppression a réussi
+        if($result){
+            header("Location: dashboard.php");
+        } else {
+            echo "Failed: " . mysqli_error($conn);
+        }
     } else {
-        echo "Erreur lors de la suppression du témoignage : " . $conn->error;
+        // Redirige si l'ID n'est pas spécifié dans le formulaire
+        header("Location: dashboard.php");
     }
-}
-
-$conn->close();
 ?>

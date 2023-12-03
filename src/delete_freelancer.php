@@ -1,11 +1,5 @@
 <?php 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "peoplepertask_data";
-
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    include "connection_data.php";
 
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["freelancer_id"])){
             $freelancerID = $_POST["freelancer_id"];

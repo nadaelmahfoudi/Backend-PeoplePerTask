@@ -93,7 +93,7 @@ footer{
 
 .tab-group:after {
 	content: "";
-	display: table;
+	display: block;
 	clear: both;
 }
 
@@ -117,7 +117,7 @@ footer{
 } 
 
 .tab-content>div:last-child {
-	display: none;
+	display: block;
 }
 
 label {

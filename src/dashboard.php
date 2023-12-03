@@ -1,3 +1,7 @@
+<?php 
+include("connection_data.php");
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -29,16 +33,7 @@
       <!-- start statistique section -->
       <section class="  flex flex-wrap justify-center gap-2 py-7  ">
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "peoplepertask_data";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die('La connexion a échoué : ' . $conn->connect_error);
-    }
+    include "connection_data.php";
 
 
     $projectCountQuery = "SELECT COUNT(*) as totalProjects FROM projects";
@@ -81,9 +76,6 @@
 
 
 
-      <!-- start testimonial section -->
-      <div class="flex-grow flex flex-col pb-10">
-
     <!-- start testimonial section -->
 <div class="flex-grow flex flex-col pb-10">
 
@@ -94,16 +86,7 @@
 
     <?php
     // Database connection
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "peoplepertask_data";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die('La connexion a échoué : ' . $conn->connect_error);
-    }
+    include "connection_data.php";
 
     // Fetch testimonials from the database
     $sql = "SELECT id, comment FROM testimonials";
@@ -111,112 +94,44 @@
 
     // Display testimonials from the database
     if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-        echo '<div class="shadow-lg text-center w-2/3 sm:w-2/5 bg-gray-50 flex flex-col gap-12 py-3 rounded-lg dark:bg-gray-600 dark:text-white mb-12">
-        <p class="font-semibold text-lg">' . $row["comment"] . '</p>
-        <form method="post" action="dashboard.php" class="inline-block">
-            <input type="hidden" name="editComment" value="' . $row["comment"] . '">
-            <input type="hidden" name="testimonial_id" value="' . $row["id"] . '">
-            <button type="button" onclick="openEditModal()" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-              Edit
-          </button>
-
-        </form>
-        <form method="post" action="delete_testimonial.php" onsubmit="return confirmDelete();" class="inline-block ml-2">
-            <input type="hidden" name="testimonial_id" value="' . $row["id"] . '">
-            <button type="submit" class="bg-custom-green text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:shadow-outline-gray active:bg-gray-800">
-                Delete
-            </button>
-        </form>
-    </div>';
-
+        while ($row = $result->fetch_assoc()) {
+            echo '<div class="shadow-lg text-center w-2/3 sm:w-2/5 bg-gray-50 flex flex-col gap-12 py-3 rounded-lg dark:bg-gray-600 dark:text-white mb-12">
+            <p class="font-semibold text-lg">' . $row["comment"] . '</p>
+            <div class="flex gap-4 mt-4">
+            <a href="edit_testimonial.php?id=' . $row["id"] . '" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+            Edit
+        </a>
+                <button onclick="confirmDelete(' . $row["id"] . ')" class="bg-custom-green text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:shadow-outline-gray active:bg-gray-800">
+                    Delete
+                </button>
+            </div>
+        </div>';
+        }
+    } else {
+        echo "<p>No testimonials found</p>";
     }
-    
-  } else {
-      echo "<p>No testimonials found</p>";
-  }
 
-    // Display form for adding testimonial
-    echo '<button type="button" onclick="openModal()" class="bg-custom-green text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:shadow-outline-gray active:bg-gray-800">
+    // Display button for adding testimonial
+    echo '<a href="add_testimonial.php" class="bg-custom-green text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:shadow-outline-gray active:bg-gray-800">
             Add Testimonial
-          </button>';
+          </a>';
 
     $conn->close();
     ?>
-
-    <!-- Modal for adding testimonial -->
-    <div id="addModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden">
-        <form id="userForm" action="addtestimonial.php" method="POST" class="bg-white p-6 rounded-md">
-            <div class="mb-4">
-                <label for="comment" class="block text-sm font-semibold text-gray-600 mb-1">Comment:</label>
-                <input type="text" id="comment" name="comment" value=""
-                    class="px-4 py-2 border rounded-md w-full focus:outline-none focus:border-blue-500 text-black">
-            </div>
-            <button type="submit"
-                class="bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:shadow-outline-blue active:bg-gray-500">
-                Submit
-            </button>
-            <button type="button" onclick="closeModal()"
-                class="bg-red-500 text-white py-2 px-4 rounded-md ml-2 hover:bg-red-600 focus:outline-none focus:shadow-outline-red active:bg-red-800">
-                Cancel
-            </button>
-        </form>
-    </div>
-    <!-- Edit Modal for testimonial -->
-<div id="editModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden">
-    <form id="editForm" action="edit_testimonial.php" method="POST" class="bg-white p-6 rounded-md">
-        <div class="mb-4">
-            <label for="newComment" class="block text-sm font-semibold text-gray-600 mb-1">New Comment:</label>
-            <input type="text" id="newComment" name="newComment" value=""
-                class="px-4 py-2 border rounded-md w-full focus:outline-none focus:border-blue-500 text-black">
-        </div>
-        <input type="hidden" id="testimonialId" name="testimonialId" value="">
-        <button type="submit"
-            class="bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:shadow-outline-blue active:bg-gray-500">
-            Save Changes
-        </button>
-        <button type="button" onclick="closeEditModal()"
-            class="bg-red-500 text-white py-2 px-4 rounded-md ml-2 hover:bg-red-600 focus:outline-none focus:shadow-outline-red active:bg-red-800">
-            Cancel
-        </button>
-    </form>
-</div>
 </section>
 
 
 
 </div>
 
-  </div>
+<script>
+    function confirmDelete(testimonialId) {
+        if (confirm("Are you sure you want to delete this testimonial?")) {
+            window.location.href = "delete_testimonial.php?id=" + testimonialId;
+        }
+    }
+</script>
 
-
-  </div>
-
-  </div>
-
-  <script>
-        function openModal() {
-    document.getElementById('addModal').classList.add('flex');
-    document.getElementById('addModal').classList.remove('hidden');
-}
-
-function closeModal() {
-    document.getElementById('addModal').classList.add('hidden');
-    document.getElementById('addModal').classList.remove('flex');
-}
-
-function openEditModal() {
-    document.getElementById('editModal').classList.add('flex');
-    document.getElementById('editModal').classList.remove('hidden');
-}
-
-function closeEditModal() {
-    document.getElementById('editModal').classList.add('hidden');
-    document.getElementById('editModal').classList.remove('flex');
-}
-
-   
-    </script>
 
   <script src="../javascript/jquery.js"></script>
   <script src="../javascript/dashboard.js"></script>

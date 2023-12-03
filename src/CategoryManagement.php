@@ -18,16 +18,7 @@
 
     <?php
     
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "peoplepertask_data";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die('La connexion a échoué : ' . $conn->connect_error);
-    }
+    include "connection_data.php";
 
   
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -46,7 +37,7 @@
 
   
     
-    $sql = "SELECT  distinct P.title, C.categoryName FROM categories C inner JOIN projects P ON C.id = P.categorie_id";
+    $sql = "SELECT DISTINCT P.title, C.categoryName FROM categories C INNER JOIN projects P ON C.id = P.categorie_id";
     $result = $conn->query($sql);
     ?>
     
@@ -71,13 +62,14 @@
                 <?php
                 
                 if ($result->num_rows > 0) {
+                    echo "Number of rows: " . $result->num_rows;{
                     while ($row = $result->fetch_assoc()) {
                         echo '<ul class="flex text-center text-white items-center bg-slate-500 dark:bg-gray-800 dark:text-white">
                                 <li class="w-2/3 text-xs md:text-lg p-4">' . $row["categoryName"] . '</li>
                                 <li class="w-1/3 text-xs md:text-lg p-4">' . $row["title"] . '</li>
                               </ul>';
                     }
-                } else {
+                } }else {
                     echo "<p>No categories found</p>";
                 }
     

@@ -1,26 +1,24 @@
-<?php
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "peoplepertask_data";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['projet_id'])) {
-    $projetId = $_POST['projet_id'];
-
-   
-    $deleteSql = "DELETE FROM projects WHERE id = $projetId";
-
-    if ($conn->query($deleteSql) === TRUE) {
+<?php 
+    include ("connection_data.php");
+    
+    // Vérifie si l'ID est passé dans l'URL
+    if(isset($_POST["submit"])){
+        $id = $_POST["id"];
         
-        header("Location: inbox.php");
-        exit(); 
+        // Requête SQL pour supprimer le projet avec l'ID spécifié
+        $sql = "DELETE FROM projects WHERE id = $id";
+        
+        // Exécute la requête
+        $result = mysqli_query($conn, $sql);
+        
+        // Vérifie si la suppression a réussi
+        if($result){
+            header("Location: inbox.php");
+        } else {
+            echo "failed: " . mysqli_error($conn);
+        }
     } else {
-        echo "Erreur lors de la suppression du projet : " . $conn->error;
+        // Redirige si l'ID n'est pas spécifié dans l'URL
+        header("Location: inbox.php");
     }
-}
-
-$conn->close();
 ?>
