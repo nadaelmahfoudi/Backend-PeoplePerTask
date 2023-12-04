@@ -1,7 +1,7 @@
 <?php ?>
 
-  <!-- Header -->
-  <header class="flex bg-gray-50 justify-between p-2 md:py-3 md:px-8 lg:px-10 dark:bg-slate-800">
+    <!-- Header -->
+    <header class="flex bg-gray-50 justify-between p-2 md:py-3 md:px-8 lg:px-10 dark:bg-slate-800">
     <div class="flex">
       <span class="bg-custom-green rounded-full p-2 w-9 h-9 md:w-11 md:h-11 lg:w-14 lg:h-14">
         <svg class="w-full h-full" viewBox="0 0 47 43" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@
           </defs>
         </svg>
       </span>
-      <span class="text-custom-green text-md md:text-xl lg:text-2xl font-bold self-center">People<span class="text-gray-500">Per</span>Task
+      <span class="text-custom-green text-md md:text-xl lg:text-2xl font-bold self-center">People<span class="text-gray-500 dark:text-white">Per</span>Task
       </span>
     </div>
 
@@ -46,7 +46,13 @@
           </a>
         </li>
       </ul>
-      <div class=" lg:w-auto  w-3/4 flex flex-col lg:flex-row  justify-center gap-4      self-center  text-1xl  ">
+  
+        <?php
+
+
+if (!isset($_SESSION['name'])):
+?>
+<div class=" lg:w-auto  w-3/4 flex flex-col lg:flex-row  justify-center gap-4      self-center  text-1xl  ">
         <a href="./sign_in.php"
           class="text-custom-green  text-center border-solid border-2 border-custom-green rounded-md  px-3">
           <span>
@@ -59,6 +65,16 @@
           </span>
         </a>
       </div>
+
+<?php else: ?>
+  <p>Welcome, <?php echo $_SESSION['name']; ?></p>
+  <a href="./logout.php" class="bg-custom-green rounded-md px-3 text-center text-white font-semibold">
+          <span>
+            Log out 
+          </span>
+        </a>
+<?php endif; ?>
+      
     </nav>
 
     <!-- Theme buttons -->

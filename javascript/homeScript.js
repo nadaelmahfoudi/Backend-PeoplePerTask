@@ -43,94 +43,68 @@ let categoriesInfos = [
     {
         id: 1,
         imgURL: "../images/categories/cat1.webp",
-        text: "Engage your community",
-        catName: "Content Writing"
-    },
+     },
 
     {
         id: 2,
         imgURL: "../images/categories/cat2.webp",
-        text: "Boost your traffic",
-        catName: "SEO"
-    },
+     },
 
 
     {
         id: 3,
         imgURL: "../images/categories/cat3.webp",
-        text: "Build your site",
-        catName: "Website Development"
-    },
+     },
 
     {
         id: 4,
         imgURL: "../images/categories/cat4.webp",
-        text: "Elevate your brnad",
-        catName: "Logo Design"
-    },
+     },
 
     {
         id: 5,
         imgURL: "../images/categories/cat5.webp",
-        text: "Tell your story",
-        catName: "Voice-over"
-    },
+     },
 
     {
         id: 6,
         imgURL: "../images/categories/cat6.webp",
-        text: "Picture your idea",
-        catName: "Illustration & Drawing"
-    },
+     },
 
     {
         id: 7,
         imgURL: "../images/categories/cat7.webp",
-        text: "Amplify your network",
-        catName: "Social Media Startegy"
-    },
+     },
 
     {
         id: 8,
         imgURL: "../images/categories/cat8.webp",
-        text: "get more customers",
-        catName: "SEM, Adwords & PPC"
-    },
+     },
 
     {
         id: 9,
         imgURL: "../images/categories/cat9.webp",
-        text: "Convert more leads",
-        catName: "Sales & Calls"
-    },
+     },
 
     {
         id: 10,
         imgURL: "../images/categories/cat10.webp",
-        text: "Ease your workload",
-        catName: "Admin Assistance"
-    },
+     },
 
     {
         id: 11,
         imgURL: "../images/categories/cat11.webp",
-        text: "Visualise your story",
-        catName: "Videography"
-    },
+     },
 
     {
         id: 12,
         imgURL: "../images/categories/cat12.webp",
-        text: "Reach new audiences",
-        catName: "Translation"
-    },
+     },
 
     {
         id: 13,
         imgURL: "../images/categories/cat13.webp",
-        text: "Bring it to life",
-        catName: "Graphic Design"
-    }
+     }
 ]
 let categoriesCards = document.querySelectorAll('.categories-section .category-card');
 
@@ -138,8 +112,7 @@ let makeCategoriesCards = (infos) => {
     let i = 0;
     categoriesCards.forEach(card => {
         card.style.backgroundImage = `url("${infos[i].imgURL}")`;
-        card.querySelector('p').textContent = infos[i].text;
-        card.querySelector('h3').textContent = infos[i].catName;
+        
         i++;
     })
 }
@@ -151,314 +124,266 @@ let freelancersInfos = [
     {
         id: 1,
         imgURL: "../images/freelancers/ayman.jpg",
-        title: "Hero SEO",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 2,
         imgURL: "../images/freelancers/smail.jpg",
-        title: "Zindihi",
-        job: "Graphic Designer, Illustrator and he is an amazing man to work with",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 3,
         imgURL: "../images/sliders/slide4/cardAbdelghani.jpg",
-        title: "ⵄⴱⴷⵉⵎⵖⴰⵏⵉ",
-        job: "Travel Software Developer / Web Developer / Linux Admin / Python & Tcl/Tk for Mac/Windows &Linux",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 2973,
         specialities: ["Figma design", "laravel dev", "React developement"],
         projectsNumber: 1574,
-        price: 75
+        
     },
     {
         id: 4,
         imgURL: "../images/sliders/slide3/cardYassine.jpg",
-        title: "Reg Exp",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed.",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 5,
         imgURL: "../images/sliders/slide2/cardMiessal.jpg",
-        title: "Meissal",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed.",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 6,
         imgURL: "../images/sliders/slide1/cardNada.jpg",
-        title: "Nada M.",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 7,
         imgURL: "../images/sliders/slide5/cardtergui.jpg",
-        title: "tergui Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 8,
         imgURL: "../images/freelancers/zehra.jpg",
-        title: "zehra Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 9,
         imgURL: "../images/freelancers/bolbola.jpg",
-        title: "meryam Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 10,
         imgURL: "../images/freelancers/elaarab.jpg",
-        title: "elaarab Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 11,
         imgURL: "../images/freelancers/elkhaili.jpg",
-        title: "elkhaili Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 12,
         imgURL: "../images/freelancers/elmorjani.jpg",
-        title: "elmorjani Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 13,
         imgURL: "../images/freelancers/ghofran.jpg",
-        title: "ghofran Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 14,
         imgURL: "../images/freelancers/lhcen.jpg",
-        title: "lahcen Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 15,
         imgURL: "../images/freelancers/li9ama.jpg",
-        title: "li9ama Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 16,
         imgURL: "../images/freelancers/ossama.jpg",
-        title: "ossama Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 17,
         imgURL: "../images/freelancers/soulaiman.jpg",
-        title: "soulaiman Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 18,
         imgURL: "../images/freelancers/waheli.jpg",
-        title: "waheli Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 19,
         imgURL: "../images/freelancers/wissal.jpg",
-        title: "wissal Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 20,
         imgURL: "../images/freelancers/yassin.jpg",
-        title: "yassin Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 21,
         imgURL: "../images/freelancers/yassirAit.jpg",
-        title: "yassir Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 22,
         imgURL: "../images/freelancers/zaid.jpg",
-        title: "zaid Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 23,
         imgURL: "../images/freelancers/bilal.jpg",
-        title: "bilal Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
     {
         id: 24,
         imgURL: "../images/freelancers/adnan.jpg",
-        title: "adnan Namek",
-        job: "SEO and digital marketing Expert. Google Certified PPC Consultant - Over 1400 projects completed",
         countryFlag: "../images/moroccoFlag.png",
         country: "Morocco",
         rating: 4.9,
         reviews: 1142,
         specialities: ["link building", "google ranking", "google search"],
         projectsNumber: 1774,
-        price: 75
+        
     },
 ]
 let freelancersCards = document.querySelectorAll('.freelancers-section .freelancer-card');
@@ -467,8 +392,6 @@ let makeFreelancersCards = (infos) => {
     let i = 0;
     freelancersCards.forEach((card) => {
         card.querySelector('.photo').setAttribute("src", infos[i].imgURL);
-        card.querySelector('.title').textContent = infos[i].title;
-        card.querySelector('.job').textContent = infos[i].job;
         card.querySelector('.country-flag').setAttribute("src", infos[i].countryFlag);
         card.querySelector('.country').textContent = infos[i].country;
         card.querySelector('.rating').textContent = infos[i].rating;
@@ -481,7 +404,6 @@ let makeFreelancersCards = (infos) => {
             card.querySelector('.specialities').insertBefore(link, card.querySelector(".specialities").firstChild);
         })
         card.querySelector('.projects').textContent = infos[i].projectsNumber + " projects";
-        card.querySelector('.price').textContent = "$" + infos[i].price;
         i++
     })
 }
