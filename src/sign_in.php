@@ -78,17 +78,21 @@ require 'header_site.php';
                         class="text-black block w-full h-fit py-1 px-2 border border-gray-300 rounded-none transition duration-250 bg-white"
                         type="password" name="confirmPassword"  autocomplete="off" />
                 </div>
-                <div class=" form-group mb-3 " >
-                        <label >Role:</label>
-                        &nbsp;
-                        <input type="radio" class="form-check-input ml-52" name="role" id="freelancer" value="freelancer">
-                        <label for="freelancer" class="form-input-label" >I'm a freelancer </label>
-                        &nbsp;
-                        <input type="radio" class="form-check-input" name="role" id="client" value="client">
-                        <label for="client" class="form-input-label">i'm a client </label>
-                        &nbsp;
-                        <input type="radio" class="form-check-input" name="role" id="admin" value="admin">
-                        <label for="admin" class="form-input-label">i'm an admin </label>
+                <div class="relative mb-10">
+                    <label class="text-white">
+                    I'm a client, hiring for a project<span class="text-teal-500 ml-2">*</span>
+                    </label>
+                    <input
+                        class="text-black block w-full h-fit py-1 px-2 border border-gray-300 rounded-none transition duration-250 bg-white"
+                        type="radio" name="role"  autocomplete="off" value="client" />
+                </div>
+                <div class="relative mb-10">
+                    <label class="text-white pb-8">
+                    I'm a freelancer, looking for work<span class="text-teal-500 ml-2">*</span>
+                    </label>
+                    <input
+                        class="text-black block w-full h-fit py-1 px-2 border border-gray-300 rounded-none transition duration-250 bg-white"
+                        type="radio" name="role"  autocomplete="off" value="freelancer" />
                 </div>
                 <button type="submit" name="submit"
                     class="w-full bg-teal-500 hover:bg-custom-green text-white border-0 rounded-none focus:outline-none uppercase tracking-wide font-semibold py-4 px-0 text-base transition-all duration-500 ease-in-out">
@@ -107,8 +111,6 @@ require 'header_site.php';
     <?php 
     include "footer.php";
     ?>
-    <!-- bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     
      <script src="../javascript/form.js"></script>
    <script src="../javascript/jquery.js"></script>
