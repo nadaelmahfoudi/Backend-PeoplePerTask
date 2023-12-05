@@ -1,8 +1,10 @@
 <?php 
 require_once("connection_data.php");
-if (isset($_POST["email"]) && isset($_POST["password"])) {
+
+if (isset($_POST["submit"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
+    $role = $_POST["role"];
 
     // Prepare a query with a single parameter for the email
     $sql = "SELECT * FROM users WHERE email = ?";
@@ -26,15 +28,15 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['name'] = $row['first_name'] . ' ' . $row['last_name'];
+            $_SESSION['role'] = $row['role'];
             header('Location: index.php');
             exit(); 
-
         } else {
             echo 'Invalid password';
         }
 
     } else {
-        echo 'Invalid email';
+        echo 'Invalid email or password';
     }
 
 } else {
@@ -99,7 +101,7 @@ require 'header_site.php';
                             <label for="remember" class="text-gray-500 dark:text-gray-300" style="margin-right = 20px">Remember me</label>
                           </div>
                 </div>
-                <button type="submit"
+                <button type="submit" name="submit"
                     class="w-full bg-teal-500 text-white border-0 rounded-none hover:bg-custom-green focus:outline-none uppercase tracking-wide font-semibold py-4 px-0 text-base transition-all duration-500 ease-in-out"  >
                     <!-- <a href="index.php">
                     

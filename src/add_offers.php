@@ -6,8 +6,7 @@
         $deadline = $_POST["deadline"];
         $status = $_POST["status"];
 
-        $sql = "INSERT INTO `offers`(`montant`, `deadline`, `status`) VALUES
-         ('$montant','$deadline',$status)";
+        $sql = "INSERT INTO `offers`(`montant`, `deadline`, `status`) VALUES ('$montant','$deadline','$status')";
 
          $result = mysqli_query($conn , $sql);
          if($result){

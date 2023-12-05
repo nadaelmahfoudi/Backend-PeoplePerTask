@@ -1,6 +1,6 @@
 <?php 
-include_once'session.php';
 include'connection_data.php';
+include_once'session.php';
 ?>
 <!doctype html>
 <html lang="en" class="scroll-smooth">
@@ -515,12 +515,12 @@ include'connection_data.php';
   </section>
   <!-- end Freelancers section -->
 
-  <!-- Offers section -->
+  <!-- Projects section -->
   <section id="offers" class="offers-section bg-white dark:bg-slate-800 w-full p-4 md:py-3 md:px-8 lg:px-10">
     <div class="flex flex-col gap-y-4">
       <div class="flex flex-row justify-between w-full mb-3 items-end font-medium">
         <div class="w-1/2">
-          <h2 class="text-xl dark:text-gray-300 md:text-2xl lg:text-3xl font-semibold">Trending Offers</h2>
+          <h2 class="text-xl dark:text-gray-300 md:text-2xl lg:text-3xl font-semibold">Latest Projects</h2>
           <p class="text-sm text-gray-400">Browse and buy ready-prepared, fixed priced work from freelancers</p>
         </div>
         <a href="#"
@@ -538,13 +538,22 @@ include'connection_data.php';
 
       <div class="carousal h-full">
         <ul class="flex flex-row h-full py-3 overflow-hidden">
+        <?php
+            $query = "SELECT title FROM projects";
+            $result = mysqli_query($conn, $query);
+            
+            if (!$result) {
+                die("Query failed: " . mysqli_error($conn));
+            }else{
+              while($row =mysqli_fetch_assoc($result)){
+                ?>
           <li
             class="offer-card h-full mr-4 drop-shadow-md cursor-pointer w-4/5 md:w-2/5 lg:w-72 shrink-0 rounded-xl overflow-hidden hover:drop-shadow-lg hover:border-b-2">
             <div class="photo bg-cover bg-no-repeat bg-center bg-green-50 h-48"></div>
 
             <div class="bg-gray-50 dark:bg-zinc-700 w-full min-h-56 flex flex-col justify-between">
               <div class="flex flex-row p-3 items-center gap-0.5">
-                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"></h3>
+                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"><?php echo $row['title']?></h3>
               </div>
               <div class="flex flex-col gap-y-3">
                 <div class="specialities flex flex-row flex-wrap my-1 text-gray-600 dark:text-gray-200 px-3">
@@ -578,395 +587,20 @@ include'connection_data.php';
                   <p class="dilevered-days text-xs text-gray-400"></p>
                 </div>
               </div>
+              <?php
+                  if ($_SESSION['role'] == 'freelancer') {
+                      ?>
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                          <a href="offers.php">Apply Now</a>
+                      </button>
+                      <?php
+                  }
+              
+              ?>
             </div>
           </li>
 
-          <li
-            class="offer-card h-full mr-4 drop-shadow-md cursor-pointer w-4/5 md:w-2/5 lg:w-72 shrink-0 rounded-xl overflow-hidden hover:drop-shadow-lg hover:border-b-2">
-            <div class="photo bg-cover bg-no-repeat bg-center bg-green-50 h-48"></div>
-
-            <div class="bg-gray-50 dark:bg-zinc-700 w-full min-h-56 flex flex-col justify-between">
-              <div class="flex flex-row p-3 items-center gap-0.5">
-                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"></h3>
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <div class="specialities flex flex-row flex-wrap my-1 text-gray-600 dark:text-gray-200 px-3">
-                  <a href="#" class="px-3 py-1 m-0.5 text-sm bg-gray-50 rounded-md border">
-                    ...
-                  </a>
-                </div>
-
-                <div class="flex flex-row justify-between text-gray-600 dark:text-slate-200 items-center px-3">
-                  <div class="flex flex-row gap-x-2 items-center">
-                    <img class="freelancer-photo w-10 h-10 rounded-full" src="" alt="offers Freelancer photo">
-                    <div class="flex flex-col">
-                      <p>by <strong class="freelancer-name font-semibold">Abdelghani A.</strong></p>
-                      <div class="flex flex-row items-center -mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
-                          <path
-                            d="M7.00656 0.800781L5.26756 5.27278H0.851562L4.44256 8.00078L3.20256 12.5088L7.00656 9.95978L10.8116 12.5088L9.57156 8.00078L13.1616 5.27278H8.74656L7.00656 0.800781Z"
-                            fill="#FFB331" />
-                        </svg>
-                        <strong class="rating text-yellow-500 font-semibold mr-1"></strong>(<p
-                          class="reviews text-gray-400"></p>)
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="price text-gray-900 dark:text-slate-100 font-semibold"></p>
-                  </div>
-                </div>
-
-                <div class="border-t border-gray-200 px-3 py-1 box-content">
-                  <p class="dilevered-days text-xs text-gray-400"></p>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li
-            class="offer-card h-full mr-4 drop-shadow-md cursor-pointer w-4/5 md:w-2/5 lg:w-72 shrink-0 rounded-xl overflow-hidden hover:drop-shadow-lg hover:border-b-2">
-            <div class="photo bg-cover bg-no-repeat bg-center bg-green-50 h-48"></div>
-
-            <div class="bg-gray-50 dark:bg-zinc-700 w-full min-h-56 flex flex-col justify-between">
-              <div class="flex flex-row p-3 items-center gap-0.5">
-                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"></h3>
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <div class="specialities flex flex-row flex-wrap my-1 text-gray-600 dark:text-gray-200 px-3">
-                  <a href="#" class="px-3 py-1 m-0.5 text-sm bg-gray-50 rounded-md border">
-                    ...
-                  </a>
-                </div>
-
-                <div class="flex flex-row justify-between text-gray-600 dark:text-slate-200 items-center px-3">
-                  <div class="flex flex-row gap-x-2 items-center">
-                    <img class="freelancer-photo w-10 h-10 rounded-full" src="" alt="offers Freelancer photo">
-                    <div class="flex flex-col">
-                      <p>by <strong class="freelancer-name font-semibold">Abdelghani A.</strong></p>
-                      <div class="flex flex-row items-center -mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
-                          <path
-                            d="M7.00656 0.800781L5.26756 5.27278H0.851562L4.44256 8.00078L3.20256 12.5088L7.00656 9.95978L10.8116 12.5088L9.57156 8.00078L13.1616 5.27278H8.74656L7.00656 0.800781Z"
-                            fill="#FFB331" />
-                        </svg>
-                        <strong class="rating text-yellow-500 font-semibold mr-1"></strong>(<p
-                          class="reviews text-gray-400"></p>)
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="price text-gray-900 dark:text-slate-100 font-semibold"></p>
-                  </div>
-                </div>
-
-                <div class="border-t border-gray-200 px-3 py-1 box-content">
-                  <p class="dilevered-days text-xs text-gray-400"></p>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li
-            class="offer-card h-full mr-4 drop-shadow-md cursor-pointer w-4/5 md:w-2/5 lg:w-72 shrink-0 rounded-xl overflow-hidden hover:drop-shadow-lg hover:border-b-2">
-            <div class="photo bg-cover bg-no-repeat bg-center bg-green-50 h-48"></div>
-
-            <div class="bg-gray-50 dark:bg-zinc-700 w-full min-h-56 flex flex-col justify-between">
-              <div class="flex flex-row p-3 items-center gap-0.5">
-                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"></h3>
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <div class="specialities flex flex-row flex-wrap my-1 text-gray-600 dark:text-gray-200 px-3">
-                  <a href="#" class="px-3 py-1 m-0.5 text-sm bg-gray-50 rounded-md border">
-                    ...
-                  </a>
-                </div>
-
-                <div class="flex flex-row justify-between text-gray-600 dark:text-slate-200 items-center px-3">
-                  <div class="flex flex-row gap-x-2 items-center">
-                    <img class="freelancer-photo w-10 h-10 rounded-full" src="" alt="offers Freelancer photo">
-                    <div class="flex flex-col">
-                      <p>by <strong class="freelancer-name font-semibold">Abdelghani A.</strong></p>
-                      <div class="flex flex-row items-center -mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
-                          <path
-                            d="M7.00656 0.800781L5.26756 5.27278H0.851562L4.44256 8.00078L3.20256 12.5088L7.00656 9.95978L10.8116 12.5088L9.57156 8.00078L13.1616 5.27278H8.74656L7.00656 0.800781Z"
-                            fill="#FFB331" />
-                        </svg>
-                        <strong class="rating text-yellow-500 font-semibold mr-1"></strong>(<p
-                          class="reviews text-gray-400"></p>)
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="price text-gray-900 dark:text-slate-100 font-semibold"></p>
-                  </div>
-                </div>
-
-                <div class="border-t border-gray-200 px-3 py-1 box-content">
-                  <p class="dilevered-days text-xs text-gray-400"></p>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li
-            class="offer-card h-full mr-4 drop-shadow-md cursor-pointer w-4/5 md:w-2/5 lg:w-72 shrink-0 rounded-xl overflow-hidden hover:drop-shadow-lg hover:border-b-2">
-            <div class="photo bg-cover bg-no-repeat bg-center bg-green-50 h-48"></div>
-
-            <div class="bg-gray-50 dark:bg-zinc-700 w-full min-h-56 flex flex-col justify-between">
-              <div class="flex flex-row p-3 items-center gap-0.5">
-                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"></h3>
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <div class="specialities flex flex-row flex-wrap my-1 text-gray-600 dark:text-gray-200 px-3">
-                  <a href="#" class="px-3 py-1 m-0.5 text-sm bg-gray-50 rounded-md border">
-                    ...
-                  </a>
-                </div>
-
-                <div class="flex flex-row justify-between text-gray-600 dark:text-slate-200 items-center px-3">
-                  <div class="flex flex-row gap-x-2 items-center">
-                    <img class="freelancer-photo w-10 h-10 rounded-full" src="" alt="offers Freelancer photo">
-                    <div class="flex flex-col">
-                      <p>by <strong class="freelancer-name font-semibold">Abdelghani A.</strong></p>
-                      <div class="flex flex-row items-center -mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
-                          <path
-                            d="M7.00656 0.800781L5.26756 5.27278H0.851562L4.44256 8.00078L3.20256 12.5088L7.00656 9.95978L10.8116 12.5088L9.57156 8.00078L13.1616 5.27278H8.74656L7.00656 0.800781Z"
-                            fill="#FFB331" />
-                        </svg>
-                        <strong class="rating text-yellow-500 font-semibold mr-1"></strong>(<p
-                          class="reviews text-gray-400"></p>)
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="price text-gray-900 dark:text-slate-100 font-semibold"></p>
-                  </div>
-                </div>
-
-                <div class="border-t border-gray-200 px-3 py-1 box-content">
-                  <p class="dilevered-days text-xs text-gray-400"></p>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li
-            class="offer-card h-full mr-4 drop-shadow-md cursor-pointer w-4/5 md:w-2/5 lg:w-72 shrink-0 rounded-xl overflow-hidden hover:drop-shadow-lg hover:border-b-2">
-            <div class="photo bg-cover bg-no-repeat bg-center bg-green-50 h-48"></div>
-
-            <div class="bg-gray-50 dark:bg-zinc-700 w-full min-h-56 flex flex-col justify-between">
-              <div class="flex flex-row p-3 items-center gap-0.5">
-                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"></h3>
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <div class="specialities flex flex-row flex-wrap my-1 text-gray-600 dark:text-gray-200 px-3">
-                  <a href="#" class="px-3 py-1 m-0.5 text-sm bg-gray-50 rounded-md border">
-                    ...
-                  </a>
-                </div>
-
-                <div class="flex flex-row justify-between text-gray-600 dark:text-slate-200 items-center px-3">
-                  <div class="flex flex-row gap-x-2 items-center">
-                    <img class="freelancer-photo w-10 h-10 rounded-full" src="" alt="offers Freelancer photo">
-                    <div class="flex flex-col">
-                      <p>by <strong class="freelancer-name font-semibold">Abdelghani A.</strong></p>
-                      <div class="flex flex-row items-center -mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
-                          <path
-                            d="M7.00656 0.800781L5.26756 5.27278H0.851562L4.44256 8.00078L3.20256 12.5088L7.00656 9.95978L10.8116 12.5088L9.57156 8.00078L13.1616 5.27278H8.74656L7.00656 0.800781Z"
-                            fill="#FFB331" />
-                        </svg>
-                        <strong class="rating text-yellow-500 font-semibold mr-1"></strong>(<p
-                          class="reviews text-gray-400"></p>)
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="price text-gray-900 dark:text-slate-100 font-semibold"></p>
-                  </div>
-                </div>
-
-                <div class="border-t border-gray-200 px-3 py-1 box-content">
-                  <p class="dilevered-days text-xs text-gray-400"></p>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li
-            class="offer-card h-full mr-4 drop-shadow-md cursor-pointer w-4/5 md:w-2/5 lg:w-72 shrink-0 rounded-xl overflow-hidden hover:drop-shadow-lg hover:border-b-2">
-            <div class="photo bg-cover bg-no-repeat bg-center bg-green-50 h-48"></div>
-
-            <div class="bg-gray-50 dark:bg-zinc-700 w-full min-h-56 flex flex-col justify-between">
-              <div class="flex flex-row p-3 items-center gap-0.5">
-                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"></h3>
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <div class="specialities flex flex-row flex-wrap my-1 text-gray-600 dark:text-gray-200 px-3">
-                  <a href="#" class="px-3 py-1 m-0.5 text-sm bg-gray-50 rounded-md border">
-                    ...
-                  </a>
-                </div>
-
-                <div class="flex flex-row justify-between text-gray-600 dark:text-slate-200 items-center px-3">
-                  <div class="flex flex-row gap-x-2 items-center">
-                    <img class="freelancer-photo w-10 h-10 rounded-full" src="" alt="offers Freelancer photo">
-                    <div class="flex flex-col">
-                      <p>by <strong class="freelancer-name font-semibold">Abdelghani A.</strong></p>
-                      <div class="flex flex-row items-center -mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
-                          <path
-                            d="M7.00656 0.800781L5.26756 5.27278H0.851562L4.44256 8.00078L3.20256 12.5088L7.00656 9.95978L10.8116 12.5088L9.57156 8.00078L13.1616 5.27278H8.74656L7.00656 0.800781Z"
-                            fill="#FFB331" />
-                        </svg>
-                        <strong class="rating text-yellow-500 font-semibold mr-1"></strong>(<p
-                          class="reviews text-gray-400"></p>)
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="price text-gray-900 dark:text-slate-100 font-semibold"></p>
-                  </div>
-                </div>
-
-                <div class="border-t border-gray-200 px-3 py-1 box-content">
-                  <p class="dilevered-days text-xs text-gray-400"></p>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li
-            class="offer-card h-full mr-4 drop-shadow-md cursor-pointer w-4/5 md:w-2/5 lg:w-72 shrink-0 rounded-xl overflow-hidden hover:drop-shadow-lg hover:border-b-2">
-            <div class="photo bg-cover bg-no-repeat bg-center bg-green-50 h-48"></div>
-
-            <div class="bg-gray-50 dark:bg-zinc-700 w-full min-h-56 flex flex-col justify-between">
-              <div class="flex flex-row p-3 items-center gap-0.5">
-                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"></h3>
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <div class="specialities flex flex-row flex-wrap my-1 text-gray-600 dark:text-gray-200 px-3">
-                  <a href="#" class="px-3 py-1 m-0.5 text-sm bg-gray-50 rounded-md border">
-                    ...
-                  </a>
-                </div>
-
-                <div class="flex flex-row justify-between text-gray-600 dark:text-slate-200 items-center px-3">
-                  <div class="flex flex-row gap-x-2 items-center">
-                    <img class="freelancer-photo w-10 h-10 rounded-full" src="" alt="offers Freelancer photo">
-                    <div class="flex flex-col">
-                      <p>by <strong class="freelancer-name font-semibold">Abdelghani A.</strong></p>
-                      <div class="flex flex-row items-center -mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
-                          <path
-                            d="M7.00656 0.800781L5.26756 5.27278H0.851562L4.44256 8.00078L3.20256 12.5088L7.00656 9.95978L10.8116 12.5088L9.57156 8.00078L13.1616 5.27278H8.74656L7.00656 0.800781Z"
-                            fill="#FFB331" />
-                        </svg>
-                        <strong class="rating text-yellow-500 font-semibold mr-1"></strong>(<p
-                          class="reviews text-gray-400"></p>)
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="price text-gray-900 dark:text-slate-100 font-semibold"></p>
-                  </div>
-                </div>
-
-                <div class="border-t border-gray-200 px-3 py-1 box-content">
-                  <p class="dilevered-days text-xs text-gray-400"></p>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li
-            class="offer-card h-full mr-4 drop-shadow-md cursor-pointer w-4/5 md:w-2/5 lg:w-72 shrink-0 rounded-xl overflow-hidden hover:drop-shadow-lg hover:border-b-2">
-            <div class="photo bg-cover bg-no-repeat bg-center bg-green-50 h-48"></div>
-
-            <div class="bg-gray-50 dark:bg-zinc-700 w-full min-h-56 flex flex-col justify-between">
-              <div class="flex flex-row p-3 items-center gap-0.5">
-                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"></h3>
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <div class="specialities flex flex-row flex-wrap my-1 text-gray-600 dark:text-gray-200 px-3">
-                  <a href="#" class="px-3 py-1 m-0.5 text-sm bg-gray-50 rounded-md border">
-                    ...
-                  </a>
-                </div>
-
-                <div class="flex flex-row justify-between text-gray-600 dark:text-slate-200 items-center px-3">
-                  <div class="flex flex-row gap-x-2 items-center">
-                    <img class="freelancer-photo w-10 h-10 rounded-full" src="" alt="offers Freelancer photo">
-                    <div class="flex flex-col">
-                      <p>by <strong class="freelancer-name font-semibold">Abdelghani A.</strong></p>
-                      <div class="flex flex-row items-center -mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
-                          <path
-                            d="M7.00656 0.800781L5.26756 5.27278H0.851562L4.44256 8.00078L3.20256 12.5088L7.00656 9.95978L10.8116 12.5088L9.57156 8.00078L13.1616 5.27278H8.74656L7.00656 0.800781Z"
-                            fill="#FFB331" />
-                        </svg>
-                        <strong class="rating text-yellow-500 font-semibold mr-1"></strong>(<p
-                          class="reviews text-gray-400"></p>)
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="price text-gray-900 dark:text-slate-100 font-semibold"></p>
-                  </div>
-                </div>
-
-                <div class="border-t border-gray-200 px-3 py-1 box-content">
-                  <p class="dilevered-days text-xs text-gray-400"></p>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li
-            class="offer-card h-full mr-4 drop-shadow-md cursor-pointer w-4/5 md:w-2/5 lg:w-72 shrink-0 rounded-xl overflow-hidden hover:drop-shadow-lg hover:border-b-2">
-            <div class="photo bg-cover bg-no-repeat bg-center bg-green-50 h-48"></div>
-
-            <div class="bg-gray-50 dark:bg-zinc-700 w-full min-h-56 flex flex-col justify-between">
-              <div class="flex flex-row p-3 items-center gap-0.5">
-                <h3 class="title text-gray-700 dark:text-slate-200 font-semibold text-lg"></h3>
-              </div>
-              <div class="flex flex-col gap-y-3">
-                <div class="specialities flex flex-row flex-wrap my-1 text-gray-600 dark:text-gray-200 px-3">
-                  <a href="#" class="px-3 py-1 m-0.5 text-sm bg-gray-50 rounded-md border">
-                    ...
-                  </a>
-                </div>
-
-                <div class="flex flex-row justify-between text-gray-600 dark:text-slate-200 items-center px-3">
-                  <div class="flex flex-row gap-x-2 items-center">
-                    <img class="freelancer-photo w-10 h-10 rounded-full" src="" alt="offers Freelancer photo">
-                    <div class="flex flex-col">
-                      <p>by <strong class="freelancer-name font-semibold">Abdelghani A.</strong></p>
-                      <div class="flex flex-row items-center -mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
-                          <path
-                            d="M7.00656 0.800781L5.26756 5.27278H0.851562L4.44256 8.00078L3.20256 12.5088L7.00656 9.95978L10.8116 12.5088L9.57156 8.00078L13.1616 5.27278H8.74656L7.00656 0.800781Z"
-                            fill="#FFB331" />
-                        </svg>
-                        <strong class="rating text-yellow-500 font-semibold mr-1"></strong>(<p
-                          class="reviews text-gray-400"></p>)
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="price text-gray-900 dark:text-slate-100 font-semibold"></p>
-                  </div>
-                </div>
-
-                <div class="border-t border-gray-200 px-3 py-1 box-content">
-                  <p class="dilevered-days text-xs text-gray-400"></p>
-                </div>
-              </div>
-            </div>
-          </li>
+          <?php }}?>
         </ul>
       </div>
 
@@ -994,7 +628,7 @@ include'connection_data.php';
       </div>
     </div>
   </section>
-  <!-- end Offers section -->
+  <!-- end Projects section -->
 
   <!-- Status section -->
   <section class="status-section w-full p-4 md:py-3 md:px-8 lg:px-10">
@@ -1115,132 +749,55 @@ include'connection_data.php';
   <!-- Testimonials section -->
   <section id="testimonials" class="testimonials-section w-full p-4 md:py-6 md:px-8 lg:px-10">
     <div class="swiper mySwiper w-full md:w-3/4 overflow-hidden m-auto">
-      <div class="swiper-wrapper flex flex-row items-center w-full py-5">
-        <div class="swiper-slide dark:text-slate-300 min-w-full p-2">
-          <div
-            class="w-full dark:bg-zinc-700 flex flex-col justify-center items-center gap-y-5 rounded-xl bg-white p-5 drop-shadow-xl ">
-            <div class="">
-              <svg xmlns="http://www.w3.org/2000/svg" width="80" height="54" viewBox="0 0 96 61" fill="none">
-                <path
-                  d="M81.5191 61C84.4085 44.3599 89.0688 24.0266 95.5 0H71.7325C60.0818 22.4032 51.7865 41.8436 46.8466 58.3214L48.9437 61H81.5191ZM34.7531 61C38.2018 41.1131 42.9086 20.7798 48.8738 0H25.1063C20.0732 9.25349 15.1799 19.6028 10.4264 31.0479C5.67293 42.493 2.36412 51.5842 0.5 58.3214L2.1777 61H34.7531Z"
-                  fill="#05C50D" />
-              </svg>
-            </div>
-            <div class="text-center">
-              <p class="text-xl">The ease of communication and security provided make the process of outsourcing
-                effortless. and it is an amazing experience to get out tasks done with PeolpePerTask.
-              </p>
-            </div>
-            <div class="flex flex-row gap-x-2 items-center">
-              <img class="w-12 h-12 rounded-full" src="../images/sliders/slide4/cardAbdelghani.jpg"
-                alt="Testimonial photo">
-              <div class="flex flex-col">
-                <h3 class="text-lg">Abdelghani A.</h3>
-                <p class="-mt-1.5 text-sm text-gray-600 dark:text-slate-400">web developer</p>
-              </div>
-            </div>
-          </div>
-        </div>
+       <div class="swiper-wrapper flex flex-row items-center w-full py-5">
+            <?php 
+                        $query = "SELECT comment FROM testimonials";
+                        $result =  mysqli_query($conn,$query);
 
-        <div class="swiper-slide dark:text-slate-300 min-w-full p-2">
-          <div
-            class="w-full dark:bg-zinc-700 flex flex-col justify-center items-center gap-y-5 rounded-xl bg-white p-5 drop-shadow-xl ">
-            <div class="">
-              <svg xmlns="http://www.w3.org/2000/svg" width="80" height="54" viewBox="0 0 96 61" fill="none">
-                <path
-                  d="M81.5191 61C84.4085 44.3599 89.0688 24.0266 95.5 0H71.7325C60.0818 22.4032 51.7865 41.8436 46.8466 58.3214L48.9437 61H81.5191ZM34.7531 61C38.2018 41.1131 42.9086 20.7798 48.8738 0H25.1063C20.0732 9.25349 15.1799 19.6028 10.4264 31.0479C5.67293 42.493 2.36412 51.5842 0.5 58.3214L2.1777 61H34.7531Z"
-                  fill="#05C50D" />
-              </svg>
-            </div>
-            <div class="text-center">
-              <p class="text-xl">The ease of communication and security provided make the process of outsourcing
-                effortless. and it is an amazing experience to get out tasks done with PeolpePerTask.
-              </p>
-            </div>
-            <div class="flex flex-row gap-x-2 items-center">
-              <img class="w-12 h-12 rounded-full" src="../images/freelancers/ayman.jpg" alt="Testimonial photo">
-              <div class="flex flex-col">
-                <h3 class="text-lg">Ayman Ben.</h3>
-                <p class="-mt-1.5 text-sm text-gray-600 dark:text-slate-400">web developer</p>
-              </div>
-            </div>
-          </div>
-        </div>
+                       if (mysqli_num_rows($result)>0):
+                          while($row = mysqli_fetch_assoc($result)):
 
-        <div class="swiper-slide dark:text-slate-300 min-w-full p-2">
-          <div
-            class="w-full dark:bg-zinc-700 flex flex-col justify-center items-center gap-y-5 rounded-xl bg-white p-5 drop-shadow-xl ">
-            <div class="">
-              <svg xmlns="http://www.w3.org/2000/svg" width="80" height="54" viewBox="0 0 96 61" fill="none">
-                <path
-                  d="M81.5191 61C84.4085 44.3599 89.0688 24.0266 95.5 0H71.7325C60.0818 22.4032 51.7865 41.8436 46.8466 58.3214L48.9437 61H81.5191ZM34.7531 61C38.2018 41.1131 42.9086 20.7798 48.8738 0H25.1063C20.0732 9.25349 15.1799 19.6028 10.4264 31.0479C5.67293 42.493 2.36412 51.5842 0.5 58.3214L2.1777 61H34.7531Z"
-                  fill="#05C50D" />
-              </svg>
-            </div>
-            <div class="text-center">
-              <p class="text-xl">The ease of communication and security provided make the process of outsourcing
-                effortless. and it is an amazing experience to get out tasks done with PeolpePerTask.
-              </p>
-            </div>
-            <div class="flex flex-row gap-x-2 items-center">
-              <img class="w-12 h-12 rounded-full" src="../images/freelancers/waheli.jpg" alt="Testimonial photo">
-              <div class="flex flex-col">
-                <h3 class="text-lg">Khalid Oukha</h3>
-                <p class="-mt-1.5 text-sm text-gray-600 dark:text-slate-400">web developer</p>
-              </div>
-            </div>
-          </div>
-        </div>
+                           $comment=$row["comment"];
 
-        <div class="swiper-slide dark:text-slate-300 min-w-full p-2">
-          <div
-            class="w-full dark:bg-zinc-700 flex flex-col justify-center items-center gap-y-5 rounded-xl bg-white p-5 drop-shadow-xl ">
-            <div class="">
-              <svg xmlns="http://www.w3.org/2000/svg" width="80" height="54" viewBox="0 0 96 61" fill="none">
-                <path
-                  d="M81.5191 61C84.4085 44.3599 89.0688 24.0266 95.5 0H71.7325C60.0818 22.4032 51.7865 41.8436 46.8466 58.3214L48.9437 61H81.5191ZM34.7531 61C38.2018 41.1131 42.9086 20.7798 48.8738 0H25.1063C20.0732 9.25349 15.1799 19.6028 10.4264 31.0479C5.67293 42.493 2.36412 51.5842 0.5 58.3214L2.1777 61H34.7531Z"
-                  fill="#05C50D" />
-              </svg>
+                        
+                        ?>
+                       
+            <div class="swiper-slide dark:text-slate-300 min-w-full p-2">
+                      <div
+                        class="w-full dark:bg-zinc-700 flex flex-col justify-center items-center gap-y-5 rounded-xl bg-white p-5 drop-shadow-xl ">
+                        <div class="">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="54" viewBox="0 0 96 61" fill="none">
+                            <path
+                              d="M81.5191 61C84.4085 44.3599 89.0688 24.0266 95.5 0H71.7325C60.0818 22.4032 51.7865 41.8436 46.8466 58.3214L48.9437 61H81.5191ZM34.7531 61C38.2018 41.1131 42.9086 20.7798 48.8738 0H25.1063C20.0732 9.25349 15.1799 19.6028 10.4264 31.0479C5.67293 42.493 2.36412 51.5842 0.5 58.3214L2.1777 61H34.7531Z"
+                              fill="#05C50D" />
+                          </svg>
+                        </div>
+                        
+                        <div class="text-center">
+                       
+                          <p class="text-xl"><?=$comment?>
+                          </p>
+                          <div class="flex flex-row gap-x-2 items-center">
+                          <img class="w-12 h-12 rounded-full" src="../images/sliders/slide4/cardAbdelghani.jpg"
+                            alt="Testimonial photo">
+                          <div class="flex flex-col">
+                            <h3 class="text-lg">Abdelghani A.</h3>
+                            <p class="-mt-1.5 text-sm text-gray-600 dark:text-slate-400">web developer</p>
+                          </div>
+                        </div>
+                      </div>
+                        
+                          </div>
+                        
             </div>
-            <div class="text-center">
-              <p class="text-xl">The ease of communication and security provided make the process of outsourcing
-                effortless. and it is an amazing experience to get out tasks done with PeolpePerTask.
-              </p>
-            </div>
-            <div class="flex flex-row gap-x-2 items-center">
-              <img class="w-12 h-12 rounded-full" src="../images/freelancers/zaid.jpg" alt="Testimonial photo">
-              <div class="flex flex-col">
-                <h3 class="text-lg">Zaid B.</h3>
-                <p class="-mt-1.5 text-sm text-gray-600 dark:text-slate-400">web developer</p>
-              </div>
-            </div>
-          </div>
-        </div>
+                        <?php 
+                         endwhile; endif;
+                        ?>
+                      
 
-        <div class="swiper-slide dark:text-slate-300 min-w-full p-2">
-          <div
-            class="w-full dark:bg-zinc-700 flex flex-col justify-center items-center gap-y-5 rounded-xl bg-white p-5 drop-shadow-xl ">
-            <div class="">
-              <svg xmlns="http://www.w3.org/2000/svg" width="80" height="54" viewBox="0 0 96 61" fill="none">
-                <path
-                  d="M81.5191 61C84.4085 44.3599 89.0688 24.0266 95.5 0H71.7325C60.0818 22.4032 51.7865 41.8436 46.8466 58.3214L48.9437 61H81.5191ZM34.7531 61C38.2018 41.1131 42.9086 20.7798 48.8738 0H25.1063C20.0732 9.25349 15.1799 19.6028 10.4264 31.0479C5.67293 42.493 2.36412 51.5842 0.5 58.3214L2.1777 61H34.7531Z"
-                  fill="#05C50D" />
-              </svg>
-            </div>
-            <div class="text-center">
-              <p class="text-xl">The ease of communication and security provided make the process of outsourcing
-                effortless. and it is an amazing experience to get out tasks done with PeolpePerTask.
-              </p>
-            </div>
-            <div class="flex flex-row gap-x-2 items-center">
-              <img class="w-12 h-12 rounded-full" src="../images/freelancers/ghofran.jpg" alt="Testimonial photo">
-              <div class="flex flex-col">
-                <h3 class="text-lg">Mohamed G.</h3>
-                <p class="-mt-1.5 text-sm text-gray-600 dark:text-slate-400">web developer</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        
+
+        
       </div>
     </div>
   </section>

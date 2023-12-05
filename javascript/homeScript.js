@@ -415,7 +415,6 @@ let offersInfos = [
     {
         id: 1,
         imgURL: "../images/offers/offer1.png",
-        title: "Design Responsive, SEO friendly & Fast Loading WordPress website",
         specialities: ["web developement", "logo design", "design"],
         freelancerPhoto: "../images/freelancers/ayman.jpg",
         freelancerName: "Ayman B.",
@@ -427,7 +426,6 @@ let offersInfos = [
     {
         id: 2,
         imgURL: "../images/offers/offer2.png",
-        title: "Design Responsive, SEO friendly & Fast Loading WordPress website",
         specialities: ["web developement", "logo design", "design"],
         freelancerPhoto: "../images/sliders/slide4/cardAbdelghani.jpg",
         freelancerName: "Abdelghani A.",
@@ -439,7 +437,6 @@ let offersInfos = [
     {
         id: 3,
         imgURL: "../images/offers/offer3.jpg",
-        title: "Design Responsive, SEO friendly & Fast Loading WordPress website",
         specialities: ["web developement", "logo design", "design"],
         freelancerPhoto: "../images/freelancers/lhcen.jpg",
         freelancerName: "Lahcen B.",
@@ -451,7 +448,6 @@ let offersInfos = [
     {
         id: 4,
         imgURL: "../images/offers/offer4.jpg",
-        title: "Design Responsive, SEO friendly & Fast Loading WordPress website",
         specialities: ["web developement", "logo design", "design"],
         freelancerPhoto: "../images/freelancers/waheli.jpg",
         freelancerName: "Waheli B.",
@@ -463,7 +459,6 @@ let offersInfos = [
     {
         id: 5,
         imgURL: "../images/offers/offer5.jpg",
-        title: "Design Responsive, SEO friendly & Fast Loading WordPress website",
         specialities: ["web developement", "logo design", "design"],
         freelancerPhoto: "../images/freelancers/zehra.jpg",
         freelancerName: "Zehra El.",
@@ -475,7 +470,6 @@ let offersInfos = [
     {
         id: 6,
         imgURL: "../images/offers/offer6.jpg",
-        title: "Design Responsive, SEO friendly & Fast Loading WordPress website",
         specialities: ["web developement", "logo design", "design"],
         freelancerPhoto: "../images/freelancers/zaid.jpg",
         freelancerName: "Zaid B.",
@@ -487,7 +481,6 @@ let offersInfos = [
     {
         id: 7,
         imgURL: "../images/offers/offer7.jpg",
-        title: "Design Responsive, SEO friendly & Fast Loading WordPress website",
         specialities: ["web developement", "logo design", "design"],
         freelancerPhoto: "../images/freelancers/yassin.jpg",
         freelancerName: "Yassin B.",
@@ -499,7 +492,6 @@ let offersInfos = [
     {
         id: 8,
         imgURL: "../images/offers/offer8.jpg",
-        title: "Design Responsive, SEO friendly & Fast Loading WordPress website",
         specialities: ["web developement", "logo design", "design"],
         freelancerPhoto: "../images/freelancers/wissal.jpg",
         freelancerName: "Wissal B.",
@@ -511,7 +503,6 @@ let offersInfos = [
     {
         id: 9,
         imgURL: "../images/offers/offer9.jpg",
-        title: "Design Responsive, SEO friendly & Fast Loading WordPress website",
         specialities: ["web developement", "logo design", "design"],
         freelancerPhoto: "../images/freelancers/zindihi.jpg",
         freelancerName: "Zindihi B.",
@@ -523,7 +514,6 @@ let offersInfos = [
     {
         id: 10,
         imgURL: "../images/offers/offer10.jpg",
-        title: "Design Responsive, SEO friendly & Fast Loading WordPress website",
         specialities: ["web developement", "logo design", "design"],
         freelancerPhoto: "../images/freelancers/ghofran.jpg",
         freelancerName: "Mohamed G.",
@@ -538,7 +528,6 @@ let offersCards = document.querySelectorAll(".offers-section .offer-card");
 let makeOffersCards = (infos) => {
     let i=0;
     offersCards.forEach(card => {
-        card.querySelector(".title").textContent = infos[i].title;
         card.querySelector(".photo").style.backgroundImage = `url("${infos[i].imgURL}")`;
         infos[i].specialities.forEach(speciality => {
             let link = document.createElement('a');
