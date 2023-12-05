@@ -6,7 +6,7 @@ include_once 'session.php';
 if (isset($_POST['submit'])) {
     signup();
 } else if (isset($_POST['login'])) {
-    login();
+    include('login.php');
 }
 
 function signup()

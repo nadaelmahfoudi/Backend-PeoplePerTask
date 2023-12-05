@@ -28,7 +28,7 @@ include_once'session.php';
       <ul class="flex flex-col lg:flex-row lg:gap-8 gap-5 self-center items-center text-1xl font-bold text-gray-700 lg:w-auto w-5/6">
         
         <?php
-                  if ($_SESSION['role'] == 'freelancer' || $_SESSION['role'] == 'client' || $_SESSION['role'] == 'admin' ) {
+                  if (isset($_SESSION['role']) == 'freelancer' || isset($_SESSION['role']) == 'client' || isset($_SESSION['role']) == 'admin' ) :
                       ?>
         <li class="text-gray-600 dark:text-gray-300 lg:pt-0 pt-4 lg:border-b-2 border-gray-600 dark:border-gray-400">
           <a href="./index.php">Home</a>
@@ -54,7 +54,7 @@ include_once'session.php';
             &nbsp;Search
           </a>
         </li>
-        <?php }else{?>
+        <?php else: ?>
           <li class="text-gray-600 dark:text-gray-300 lg:pt-0 pt-4 lg:border-b-2 border-gray-600 dark:border-gray-400">
           <a href="./index.php">Home</a>
         </li>
@@ -76,7 +76,7 @@ include_once'session.php';
             &nbsp;Search
           </a>
         </li>
-          <?php }?>
+          <?php endif; ?>
       </ul>
   
         <?php

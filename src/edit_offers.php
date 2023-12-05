@@ -55,7 +55,8 @@
                     <input type="text" class="form-control" name="deadline" value="<?php echo $row["deadline"]; ?>">
                 </div>
                 <div class=" form-group mb-3" >
-                        <label >Status:</label>&nbsp;
+                        <label >Status:</label>
+                        &nbsp;
                         <input type="radio" class="form-check-input" name="status" id="to do" value="to do">
                         <label for="to do" class="form-input-label">to do</label>
                         &nbsp;

@@ -63,7 +63,7 @@
                     </div>
                     <div>
                         <button type="submit" class="btn btn-success" name="submit" >Save</button>
-                        <a href="index3.php" class="btn btn-danger">Cancel</a>
+                        <a href="offers.php" class="btn btn-danger">Cancel</a>
                     </div>
             </form>
         </div>

@@ -1,6 +1,7 @@
 <?php 
 include'connection_data.php';
 include_once'session.php';
+
 ?>
 <!doctype html>
 <html lang="en" class="scroll-smooth">
@@ -588,15 +589,13 @@ include_once'session.php';
                 </div>
               </div>
               <?php
+              if(isset($_SESSION['role'])):
                   if ($_SESSION['role'] == 'freelancer') {
                       ?>
                       <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                           <a href="offers.php">Apply Now</a>
                       </button>
-                      <?php
-                  }
-              
-              ?>
+                      <?php } endif;?>
             </div>
           </li>
 

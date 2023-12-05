@@ -4,7 +4,7 @@ require_once("connection_data.php");
 if (isset($_POST["submit"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $role = $_POST["role"];
+    $role = $_POST['role'];
 
     // Prepare a query with a single parameter for the email
     $sql = "SELECT * FROM users WHERE email = ?";
