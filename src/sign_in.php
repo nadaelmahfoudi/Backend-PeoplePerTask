@@ -94,6 +94,14 @@ require 'header_site.php';
                         class="text-black block w-full h-fit py-1 px-2 border border-gray-300 rounded-none transition duration-250 bg-white"
                         type="radio" name="role"  autocomplete="off" value="freelancer" />
                 </div>
+                <div class="relative mb-10">
+                    <label class="text-white">
+                    I'm an admin<span class="text-teal-500 ml-2">*</span>
+                    </label>
+                    <input
+                        class="text-black block w-full h-fit py-1 px-2 border border-gray-300 rounded-none transition duration-250 bg-white"
+                        type="radio" name="role"  autocomplete="off" value="admin" />
+                </div>
                 <button type="submit" name="submit"
                     class="w-full bg-teal-500 hover:bg-custom-green text-white border-0 rounded-none focus:outline-none uppercase tracking-wide font-semibold py-4 px-0 text-base transition-all duration-500 ease-in-out">
                     Get Started

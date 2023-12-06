@@ -1,19 +1,42 @@
-<?php 
-    include ("connection_data.php");
+<?php
+include("connection_data.php");
+$categoryQuery = "SELECT * FROM categories";
+$categoryResult = $conn->query($categoryQuery);
 
-    if(isset($_POST["submit"])){
-        $title = $_POST["title"];
-        $description = $_POST["description"];
+if (!$categoryResult) {
+    die("Error fetching categories: " . $conn->error);
+}
 
-        $sql = "INSERT INTO `projects`(`id`, `title`, `description`) VALUES (NULL,'$title','$description')";
+$categories = [];
+while ($row = $categoryResult->fetch_assoc()) {
+    $categories[] = $row;
+}
 
-        $result = mysqli_query($conn, $sql);
-        if($result){
-            header("Location: inbox.php");
-        } else {
-            echo "failed: " . mysqli_error($conn);
-        }
+
+
+$query = "SELECT projects.*, categories.categoryName FROM projects
+          INNER JOIN categories ON projects.categorie_id = categories.id";
+$result = mysqli_query($conn, $query);
+
+$projects = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $projects[] = $row;
+}
+
+if (isset($_POST["submit"])) {
+    $title = $_POST["title"];
+    $description = $_POST["description"];
+    $category = $_POST["categorie_id"]; 
+
+    $sql = "INSERT INTO `projects`(`id`, `title`, `description`, `categorie_id`) VALUES (NULL,'$title','$description', '$category')";
+
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        header("Location: inbox.php");
+    } else {
+        echo "failed: " . mysqli_error($conn);
     }
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +49,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>CRUD - Projects</title>
+    <title>ADD_Projects</title>
 </head>
 <body>
      <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: black" >Projects CRUD</nav>
@@ -48,9 +71,18 @@
                     <textarea class="form-control" name="description" placeholder="Project Description" rows="3"></textarea>
                 </div>
 
+                 <div class="mb-3">
+                    <label for="category" class="form-label">Category:</label>
+                    <select class="form-select" name="categorie_id">
+                        <?php foreach ($categories as $category) : ?>
+                            <option value="<?php echo $category['id']; ?>"><?php echo $category['categoryName']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
                 <div>
                     <button type="submit" class="btn btn-success" name="submit" >Save </button>
-                    <a href="projects.php" class="btn btn-danger">Cancel</a>
+                    <a href="inbox.php" class="btn btn-danger">Cancel</a>
                 </div>
             </form>
         </div>

@@ -1,11 +1,23 @@
 <?php 
     include ("connection_data.php");
+    $categoryQuery = "SELECT * FROM categories";
+    $categoryResult = $conn->query($categoryQuery);
+
+    if (!$categoryResult) {
+         die("Error fetching categories: " . $conn->error);
+    }
+
+    $categories = [];
+    while ($row = $categoryResult->fetch_assoc()) {
+         $categories[] = $row;
+        }
     $id = $_GET["id"];
     if(isset($_POST["submit"])){
         $title = $_POST["title"];
         $description = $_POST["description"];
+        $category = $_POST["categorie_id"]; 
 
-        $sql = "UPDATE `projects` SET `title`='$title', `description`='$description' WHERE id= $id";
+        $sql = "UPDATE `projects` SET `title`='$title', `description`='$description',`categorie_id`='$category' WHERE `id`= '$id'";
 
          $result = mysqli_query($conn , $sql);
          if($result){
@@ -29,7 +41,7 @@
     <title>CRUD</title>
 </head>
 <body>
-     <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: black" >Crud</nav>
+     <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: black" >Edit project</nav>
     <div class="container">
         <div class="text-center mb-4">
             <h3>Edit Project Information</h3>
@@ -51,6 +63,14 @@
                 <div class="mb-3" >
                     <label for="form-label">Description:</label>
                     <input type="text" class="form-control" name="description" value="<?php echo $row["description"]; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category:</label>
+                    <select class="form-select" name="categorie_id">
+                        <?php foreach ($categories as $category) : ?>
+                            <option value="<?php echo $category['id']; ?>"><?php echo $category['categoryName']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div>
                     <button type="submit" class="btn btn-success" name="submit" >Save Changes</button>

@@ -30,7 +30,7 @@ $result = $conn->query($sql);
     <?php include "sidebar.php"; ?>
     <!-- end side bar -->
 
-    <div class="freelancer_section w-auto flex flex-col ">
+    <div class="freelancer_section w-auto flex flex-col px-12 ">
         <h1 class="text-black dark:text-white text-center text-4xl">List of offers </h1>
 
         <table class="table min-w-full bg-gray-600 border border-gray-300">
