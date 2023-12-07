@@ -3,29 +3,38 @@
     $categoryQuery = "SELECT * FROM categories";
     $categoryResult = $conn->query($categoryQuery);
 
-    if (!$categoryResult) {
-         die("Error fetching categories: " . $conn->error);
+if (!$categoryResult) {
+    die("Error fetching categories: " . $conn->error);
+}
+
+$categories = [];
+while ($row = $categoryResult->fetch_assoc()) {
+    $categories[] = $row;
+}
+
+$id = $_GET["id"];
+
+if (isset($_POST["submit"])) {
+    $title = htmlspecialchars(trim($_POST["title"]));
+    $description = htmlspecialchars(trim($_POST["description"]));
+    $category = htmlspecialchars(trim($_POST["categorie_id"]));
+
+    $sql = "UPDATE `projects` SET `title`=?, `description`=?, `categorie_id`=? WHERE `id`=?";
+
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "sssi", $title, $description, $category, $id);
+
+    $result = mysqli_stmt_execute($stmt);
+
+    if ($result) {
+        header("Location: inbox.php");
+    } else {
+        echo "Failed: " . mysqli_error($conn);
     }
+    mysqli_stmt_close($stmt);
+}
 
-    $categories = [];
-    while ($row = $categoryResult->fetch_assoc()) {
-         $categories[] = $row;
-        }
-    $id = $_GET["id"];
-    if(isset($_POST["submit"])){
-        $title = $_POST["title"];
-        $description = $_POST["description"];
-        $category = $_POST["categorie_id"]; 
 
-        $sql = "UPDATE `projects` SET `title`='$title', `description`='$description',`categorie_id`='$category' WHERE `id`= '$id'";
-
-         $result = mysqli_query($conn , $sql);
-         if($result){
-            header("Location: inbox.php");
-         } else {
-            echo "Failed: " . mysqli_error($conn);
-         }
-    }
 ?>
 
 <!DOCTYPE html>

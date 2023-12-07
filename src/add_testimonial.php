@@ -1,19 +1,25 @@
-<?php 
-    include ("connection_data.php");
+<?php
+include("connection_data.php");
 
-    if(isset($_POST["submit"])){
-        $comment = $_POST["comment"];
+if (isset($_POST["submit"])) {
+    $comment = htmlspecialchars(trim($_POST["comment"]));
+    $sql = "INSERT INTO `testimonials` (`comment`) VALUES (?)";
 
-        $sql = "INSERT INTO `testimonials` (`comment`) VALUES ('$comment')";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $comment);
 
-        $result = mysqli_query($conn, $sql);
-        if($result){
-            header("Location: dashboard.php");
-        } else {
-            echo "Failed: " . mysqli_error($conn);
-        }
+    $result = mysqli_stmt_execute($stmt);
+
+    if ($result) {
+        header("Location: dashboard.php");
+    } else {
+        echo "Failed: " . mysqli_error($conn);
     }
+
+    mysqli_stmt_close($stmt);
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

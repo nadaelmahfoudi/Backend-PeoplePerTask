@@ -1,6 +1,16 @@
 <?php 
-include("connection_data.php");
+include 'connection_data.php';
+include 'session.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit(); 
+}else{
+    header("Location: index.php");
+    exit();
+}
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -41,7 +51,7 @@ include("connection_data.php");
     $projectCount = $projectResult->fetch_assoc()['totalProjects'];
 
 
-    $freelancerCountQuery = "SELECT COUNT(*) as totalFreelancers FROM freelancers";
+    $freelancerCountQuery = "SELECT COUNT(*) as totalFreelancers FROM users WHERE role ='freelancer'";
     $freelancerResult = $conn->query($freelancerCountQuery);
     $freelancerCount = $freelancerResult->fetch_assoc()['totalFreelancers'];
     ?>

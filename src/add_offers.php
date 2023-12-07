@@ -1,22 +1,39 @@
-<?php 
-    include ("connection_data.php");
+<?php
+include("connection_data.php");
+include("session.php");
 
-    if(isset($_POST["submit"])){
+if (isset($_POST["submit"])) {
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
         $montant = $_POST["montant"];
         $deadline = $_POST["deadline"];
         $status = $_POST["status"];
 
-        $sql = "INSERT INTO `offers`(`montant`, `deadline`, `status`) VALUES ('$montant','$deadline','$status')";
+        $sql = "INSERT INTO `offers`(`montant`, `deadline`, `status`, `user_id`) VALUES (?, ?, ?, ?)";
 
-         $result = mysqli_query($conn , $sql);
-         if($result){
+        // Create a prepared statement
+        $stmt = mysqli_prepare($conn, $sql);
+
+        // Bind parameters to the placeholders
+        mysqli_stmt_bind_param($stmt, "dssi", $montant, $deadline, $status, $user_id);
+
+        // Execute the statement
+        $result = mysqli_stmt_execute($stmt);
+
+        if ($result) {
             header("Location: offers.php");
-         }else{
-            echo"failed:".mysqli_error($conn);
-         }
+        } else {
+            echo "Failed: " . mysqli_error($conn);
         }
-    
+
+        // Close the statement
+        mysqli_stmt_close($stmt);
+    } else {
+        echo "L'utilisateur n'est pas connecté.";
+    }
+}
 ?>
+
 
 
 <!DOCTYPE html>
@@ -32,7 +49,9 @@
     <title>FREELANCER SPACE</title>
 </head>
 <body>
-     <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: black" >Crud</nav>
+    <?php if(isset($_SESSION['name'])): ?>
+     <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: black" >Welcome ! <?php echo $_SESSION['name']; ?></nav>
+    <?php endif; ?>
     <div class="container">
         <div class="text-center mb-4">
             <h3>Add new offer</h3>

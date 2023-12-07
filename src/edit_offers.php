@@ -1,22 +1,29 @@
-<?php 
-    include ("connection_data.php");
-    $id = $_GET["id"];
-    if(isset($_POST["submit"])){
-        $montant = $_POST["montant"];
-        $deadline = $_POST["deadline"];
-        $status = $_POST["status"];
+<?php
+include("connection_data.php");
 
-        $sql = "UPDATE `offers` SET 
-        `montant`='$montant',`deadline`='$deadline',`status`='$status' WHERE id= $id";
+$id = $_GET["id"];
 
-         $result = mysqli_query($conn , $sql);
-         if($result){
-            header("Location: offers.php");
-         }else{
-            echo "Failed: " . mysqli_error($conn);
-         }
+if (isset($_POST["submit"])) {
+    $montant = $_POST["montant"];
+    $deadline = $_POST["deadline"];
+    $status = $_POST["status"];
+    $sql = "UPDATE `offers` SET `montant`=?, `deadline`=?, `status`=? WHERE id=?";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    mysqli_stmt_bind_param($stmt, "dssi", $montant, $deadline, $status, $id);
+
+    $result = mysqli_stmt_execute($stmt);
+
+    if ($result) {
+        header("Location: offers.php");
+    } else {
+        echo "Failed: " . mysqli_error($conn);
     }
+
+    mysqli_stmt_close($stmt);
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

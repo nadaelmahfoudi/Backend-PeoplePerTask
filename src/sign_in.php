@@ -1,5 +1,8 @@
-
-
+<?php 
+include("connection_data.php");
+include("session.php");
+if(isset)
+?>
 <!doctype html>
 <html>
 <head>
@@ -10,7 +13,6 @@
   <title>sign in</title>
 
 </head>
-
 
 <body class="dark:bg-slate-900">
 <?php

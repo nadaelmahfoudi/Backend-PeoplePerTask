@@ -3,6 +3,7 @@
 include("connection_data.php");
 include_once 'session.php';
 
+
 if (isset($_POST['submit'])) {
     signup();
 } else if (isset($_POST['login'])) {
@@ -14,11 +15,11 @@ function signup()
     global $conn;
 
     if (isset($_POST['submit'])) {
-        $first_name = $_POST["first_name"];
-        $last_name = $_POST["last_name"];
-        $email = $_POST["email"];
+        $first_name =htmlspecialchars(trim($_POST["first_name"]));
+        $last_name =htmlspecialchars(trim( $_POST["last_name"]));
+        $email = htmlspecialchars(trim($_POST["email"]));
         $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
-        $confirmPassword = $_POST["confirmPassword"];
+        $confirmPassword = htmlspecialchars(trim($_POST["confirmPassword"]));
         $role = $_POST["role"];
 
         if (empty($_POST["first_name"]) || empty($_POST["last_name"]) || empty($_POST["password"]) || empty($_POST["confirmPassword"]) || empty($_POST["role"])) {

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../dist/output.css" rel="stylesheet">
 </head>
-<body>
+<body class="dark:bg-slate-900">
    
   <!-- Header -->
   <?php 
@@ -17,7 +17,7 @@ include("header_site.php");
   <form action="validation.php" method="POST" >
    <div class="grid grid-cols-1 mb-6 md:grid-cols-2 ">
     <div class="flex flex-col  items-center">
-        <h1 class="font-serif font-semibold text-4xl md:text-[45px] text-black text-center mt-10">Contact US
+        <h1 class="font-serif font-semibold text-4xl md:text-[45px] text-black text-center mt-10 dark:text-white">Contact US
         </h1>
 
         <div class="w-9/12 sm:9/12 md:w-11/12 lg:w-9/12  ">

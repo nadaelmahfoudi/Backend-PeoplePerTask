@@ -1,9 +1,17 @@
 <?php 
 require_once("connection_data.php");
+include("session.php");
 
+if (!isset($_SESSION["user_id"])) {
+    header("location: sign_in.php");
+    exit();
+} else {
+    header("location: index.php");
+    exit();
+}
 if (isset($_POST["submit"])) {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
+    $email = htmlspecialchars(trim($_POST["email"]));
+    $password = htmlspecialchars(trim($_POST["password"]));
     $role = $_POST['role'];
 
     // Prepare a query with a single parameter for the email
@@ -37,11 +45,9 @@ if (isset($_POST["submit"])) {
 
     } else {
         echo 'Invalid email or password';
-    }
+    }}
 
-} else {
-    echo 'Email and password are required';
-}
+
 ?>
 <!doctype html>
 <html>
@@ -93,19 +99,17 @@ require 'header_site.php';
                         class="text-black block w-full h-fit py-1 px-2 border border-gray-300 rounded-none transition duration-250 bg-white"
                         value="<?= isset($_COOKIE['password']) ? $_COOKIE['password'] : ''?>" name= "password" type="password" required autocomplete="off" />
                 </div>
-                <div class="flex items-start">
+                <!-- <div class="flex items-start">
                           <div class="flex items-center h-5">
                             <input id="remember" aria-describedby="remember" name="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" >
                           </div>
                           <div class="ml-3 text-sm">
                             <label for="remember" class="text-gray-500 dark:text-gray-300" style="margin-right = 20px">Remember me</label>
                           </div>
-                </div>
+                </div> -->
                 <button type="submit" name="submit"
                     class="w-full bg-teal-500 text-white border-0 rounded-none hover:bg-custom-green focus:outline-none uppercase tracking-wide font-semibold py-4 px-0 text-base transition-all duration-500 ease-in-out"  >
-                    <!-- <a href="index.php">
                     
-                </a> -->
                 Get Started
             </button>
 
@@ -122,6 +126,7 @@ require 'header_site.php';
 
     <?php 
     include "footer.php";
+
     ?>
      <script src="../javascript/form.js"></script>
    <script src="../javascript/jquery.js"></script>

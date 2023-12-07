@@ -24,19 +24,28 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 if (isset($_POST["submit"])) {
-    $title = $_POST["title"];
-    $description = $_POST["description"];
-    $category = $_POST["categorie_id"]; 
+    $title = htmlspecialchars(trim($_POST["title"]));
+    $description = htmlspecialchars(trim($_POST["description"]));
+    $category = htmlspecialchars(trim($_POST["categorie_id"]));
 
-    $sql = "INSERT INTO `projects`(`id`, `title`, `description`, `categorie_id`) VALUES (NULL,'$title','$description', '$category')";
+    $sql = "INSERT INTO `projects`(`id`, `title`, `description`, `categorie_id`) VALUES (NULL, ?, ?, ?)";
 
-    $result = mysqli_query($conn, $sql);
+    $stmt = mysqli_prepare($conn, $sql);
+
+    mysqli_stmt_bind_param($stmt, "sss", $title, $description, $category);
+
+    $result = mysqli_stmt_execute($stmt);
+
     if ($result) {
         header("Location: inbox.php");
     } else {
-        echo "failed: " . mysqli_error($conn);
+        echo "Failed: " . mysqli_error($conn);
     }
+
+    mysqli_stmt_close($stmt);
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +58,7 @@ if (isset($_POST["submit"])) {
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>ADD_Projects</title>
+    <title>ADDIProjects</title>
 </head>
 <body>
      <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: black" >Projects CRUD</nav>

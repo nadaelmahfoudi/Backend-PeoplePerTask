@@ -1,8 +1,28 @@
 <?php
+include("session.php");
+include("script.php");
 include "connection_data.php";
+var_dump($_SESSION);
 
-$sql = "SELECT id, montant, deadline, status FROM offers";
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+$role = $_SESSION['role'];
+
+if ($role == 'freelancer') {
+    $user_id = $_SESSION['user_id'];
+    $sql = "SELECT id,montant,deadline,status FROM offers WHERE user_id = $user_id";
+} else {
+    $sql = "SELECT id, montant, deadline, status FROM offers";
+}
+
 $result = $conn->query($sql);
+
+if (!$result) {
+    echo "Erreur SQL: " . $conn->error;
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

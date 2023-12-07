@@ -92,8 +92,6 @@ include_once'session.php';
       </ul>
   
         <?php
-
-
 if (!isset($_SESSION['name'])):
 ?>
 <div class=" lg:w-auto  w-3/4 flex flex-col lg:flex-row  justify-center gap-4      self-center  text-1xl  ">
@@ -111,7 +109,7 @@ if (!isset($_SESSION['name'])):
       </div>
 
 <?php else: ?>
-  <p class="dark:text-white" >Welcome, <?php echo $_SESSION['name']; ?></p>
+  <p class="dark:text-white" >Welcome ! <?php echo $_SESSION['name']; ?></p>
   <a href="./logout.php" class="bg-custom-green rounded-md px-3 text-center text-white font-semibold">
           <span>
             Log out 

@@ -3,23 +3,41 @@ include("connection_data.php");
 
 if (isset($_POST["submit"])) {
     $testimonial_id = $_POST["id"];
-    $new_comment = $_POST["comment"];
+    $new_comment = htmlspecialchars($_POST["comment"]);
 
-    $sql = "UPDATE testimonials SET comment = '$new_comment' WHERE id = $testimonial_id";
+    $sql = "UPDATE testimonials SET comment = ? WHERE id = ?";
 
-    $result = mysqli_query($conn, $sql);
+    $stmt = mysqli_prepare($conn, $sql);
+
+    mysqli_stmt_bind_param($stmt, "si", $new_comment, $testimonial_id);
+
+    $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
         header("Location: dashboard.php");
     } else {
         echo "Failed: " . mysqli_error($conn);
     }
+
+    mysqli_stmt_close($stmt);
 } elseif (isset($_GET["id"])) {
     $testimonial_id = $_GET["id"];
-    $sql = "SELECT * FROM testimonials WHERE id = $testimonial_id LIMIT 1";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
+    $sql = "SELECT * FROM testimonials WHERE id = ? LIMIT 1";
+
+    $stmt = mysqli_prepare($conn, $sql);
+
+    mysqli_stmt_bind_param($stmt, "i", $testimonial_id);
+
+    $result = mysqli_stmt_execute($stmt);
+
+    mysqli_stmt_bind_result($stmt, $id, $comment);
+
+    mysqli_stmt_fetch($stmt);
+
+    mysqli_stmt_close($stmt);
+
 ?>
+
     <!DOCTYPE html>
     <html lang="en">
 

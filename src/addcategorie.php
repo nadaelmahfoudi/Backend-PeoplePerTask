@@ -5,7 +5,7 @@
     if($conn->connect_error){
         die("la connexion a été échouée: ".$conn->connect_error);
     }else{
-        $categoriename = $_POST["categoryName"];
+        $categoriename = htmlspecialchars(trim($_POST["categoryName"]));
         echo "connected !";
         $stmt = $conn->prepare("INSERT INTO categories(categoryName) VALUES (?)");
         $stmt->bind_param("s",$categoryName);

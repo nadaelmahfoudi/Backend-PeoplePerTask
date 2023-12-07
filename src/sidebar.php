@@ -67,7 +67,7 @@ include_once'session.php';
                             </svg>
                         </span>
                     </li>
-                    
+               
                   
                     <li>
                         <a href="CategoryManagement.php
@@ -83,7 +83,7 @@ include_once'session.php';
 
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="freelancer.php
                     "
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -96,7 +96,7 @@ include_once'session.php';
                             </svg>
 
                         </a>
-                    </li>
+                    </li> -->
                     
                     <li>
                         <a href="dashboard.php

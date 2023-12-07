@@ -431,7 +431,7 @@ include_once'session.php';
       <div class="carousal h-full">
         <ul class="flex flex-row h-full py-3 overflow-hidden">
         <?php
-            $query = " SELECT * FROM freelancers";
+            $query = " SELECT first_name,last_name FROM users WHERE  role='freelancer'";
             $result = mysqli_query($conn, $query);
 
             if (!$result){
@@ -444,8 +444,8 @@ include_once'session.php';
             <div class="px-3 py-1 bg-green-50 dark:bg-gray-700 h-72 flex flex-col justify-between">
               <div class="w-full mb-3">
                 <img class="photo rounded-full w-7/12 m-auto" src="" alt="freelancerPhoto">
-                <h3 class="title text-gray-600 dark:text-slate-200 text-center font-bold mt-1 mb-2"><?php echo $row['freelancer_name']?></h3>
-                <p class="job text-justify text-md leading-4 text-gray-600 dark:text-slate-300"><?php echo $row['skill']?></p>
+                <h3 class="title text-gray-600 dark:text-slate-200 text-center font-bold mt-1 mb-2"><?php echo $row['first_name'] . ' ' . $row['last_name']?></h3>
+                <p class="job text-justify text-md leading-4 text-gray-600 dark:text-slate-300"></p>
               </div>
 
               <div class="flex flex-row justify-start gap-2">
@@ -477,7 +477,7 @@ include_once'session.php';
                   <p class="projects"></p>
                 </div>
                 <div>
-                  <p><strong class="price text-gray-900 dark:text-slate-300"><?php echo $row['salary']?></strong>/hr</p>
+                  <p><strong class="price text-gray-900 dark:text-slate-300"></strong>/hr</p>
                 </div>
               </div>
             </div>
@@ -524,9 +524,13 @@ include_once'session.php';
           <h2 class="text-xl dark:text-gray-300 md:text-2xl lg:text-3xl font-semibold">Latest Projects</h2>
           <p class="text-sm text-gray-400">Browse and buy ready-prepared, fixed priced work from freelancers</p>
         </div>
-        <a href="#"
-          class="text-xs md:text-lg lg:text-xl text-blue-500 flex flex-row items-center md:gap-x-2 p-1 rounded-lg hover:bg-sky-50 dark:hover:bg-slate-600">ALL
-          OFFERS
+        <?php
+              if(isset($_SESSION['role'])):
+                  if ($_SESSION['role'] == 'client') {
+                      ?>
+        <a href="inbox.php"
+          class="text-xs md:text-lg lg:text-xl text-blue-500 flex flex-row items-center md:gap-x-2 p-1 rounded-lg hover:bg-sky-50 dark:hover:bg-slate-600">
+          ADD PROJECT !
           <span class="">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 12 10" fill="none">
               <path
@@ -535,12 +539,13 @@ include_once'session.php';
             </svg>
           </span>
         </a>
+        <?php }endif;?>
       </div>
 
       <div class="carousal h-full">
         <ul class="flex flex-row h-full py-3 overflow-hidden">
         <?php
-            $query = "SELECT title FROM projects";
+            $query = "SELECT * FROM projects";
             $result = mysqli_query($conn, $query);
             
             if (!$result) {
@@ -588,14 +593,20 @@ include_once'session.php';
                   <p class="dilevered-days text-xs text-gray-400"></p>
                 </div>
               </div>
+              <div class="flex flex-col gap-6" >
+              <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                          <a href="detail_projet.php?id=<?php echo $row['id']; ?>">Read More !</a>
+                      </button>
               <?php
               if(isset($_SESSION['role'])):
                   if ($_SESSION['role'] == 'freelancer') {
                       ?>
                       <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-                          <a href="offers.php">Apply Now</a>
+                          <a href="add_offers.php">Apply Now</a>
                       </button>
                       <?php } endif;?>
+              </div>
+              
             </div>
           </li>
 
