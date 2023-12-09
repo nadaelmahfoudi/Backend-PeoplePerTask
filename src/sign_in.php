@@ -1,8 +1,4 @@
-<?php 
-include("connection_data.php");
-include("session.php");
-if(isset)
-?>
+
 <!doctype html>
 <html>
 <head>
@@ -13,6 +9,7 @@ if(isset)
   <title>sign in</title>
 
 </head>
+
 
 <body class="dark:bg-slate-900">
 <?php
@@ -25,7 +22,7 @@ require 'header_site.php';
             <a class="  no-underline transition duration-500 ease-in-out  bg-teal-500 hover:bg-teal-500 block"style="margin-left: 130px;"
                 href="#signup">Sign Up</a>
         </li>
- 
+
  
     </ul>
 

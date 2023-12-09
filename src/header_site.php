@@ -95,7 +95,7 @@ include_once'session.php';
 if (!isset($_SESSION['name'])):
 ?>
 <div class=" lg:w-auto  w-3/4 flex flex-col lg:flex-row  justify-center gap-4      self-center  text-1xl  ">
-        <a href="./sign_in.php"
+        <a href="sign_in.php"
           class="text-custom-green  text-center border-solid border-2 border-custom-green rounded-md  px-3">
           <span>
             Sign Up

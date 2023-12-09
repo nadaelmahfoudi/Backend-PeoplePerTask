@@ -10,14 +10,10 @@ if (isset($_POST["submit"])) {
         $status = $_POST["status"];
 
         $sql = "INSERT INTO `offers`(`montant`, `deadline`, `status`, `user_id`) VALUES (?, ?, ?, ?)";
-
-        // Create a prepared statement
         $stmt = mysqli_prepare($conn, $sql);
 
-        // Bind parameters to the placeholders
         mysqli_stmt_bind_param($stmt, "dssi", $montant, $deadline, $status, $user_id);
 
-        // Execute the statement
         $result = mysqli_stmt_execute($stmt);
 
         if ($result) {
@@ -26,7 +22,6 @@ if (isset($_POST["submit"])) {
             echo "Failed: " . mysqli_error($conn);
         }
 
-        // Close the statement
         mysqli_stmt_close($stmt);
     } else {
         echo "L'utilisateur n'est pas connecté.";

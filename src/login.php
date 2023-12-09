@@ -1,39 +1,25 @@
 <?php 
-require_once("connection_data.php");
-include("session.php");
+include 'connection_data.php';
+include 'session.php';
 
-if (!isset($_SESSION["user_id"])) {
-    header("location: sign_in.php");
-    exit();
-} else {
-    header("location: index.php");
-    exit();
-}
+
 if (isset($_POST["submit"])) {
     $email = htmlspecialchars(trim($_POST["email"]));
     $password = htmlspecialchars(trim($_POST["password"]));
     $role = $_POST['role'];
-
-    // Prepare a query with a single parameter for the email
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = mysqli_prepare($conn, $sql);
-
-    // Bind the parameter (only for email)
     mysqli_stmt_bind_param($stmt, "s", $email);
 
-    // Execute the prepared query
     mysqli_stmt_execute($stmt);
 
-    // Get the result (mysqli_stmt_get_result)
     $result = mysqli_stmt_get_result($stmt);
 
-    // Check if a row with the given email exists
     if ($row = mysqli_fetch_assoc($result)) {
         // Verify the password
         if (password_verify($password, $row['password'])) {
-            // Password is valid
-            session_start(); // Start the session if not started already
-
+       
+            session_start(); 
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['name'] = $row['first_name'] . ' ' . $row['last_name'];
             $_SESSION['role'] = $row['role'];

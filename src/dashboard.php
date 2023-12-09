@@ -2,13 +2,13 @@
 include 'connection_data.php';
 include 'session.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php");
-    exit(); 
-}else{
-    header("Location: index.php");
-    exit();
-}
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: index.php");
+//     exit(); 
+// }else{
+//     header("Location: index.php");
+//     exit();
+// }
 ?>
 
 

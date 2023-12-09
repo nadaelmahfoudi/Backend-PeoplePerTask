@@ -31,7 +31,6 @@ function signup()
         } else if (strlen($_POST["password"]) < 6) {
             echo "Password must contain at least 6 characters.";
         } else if ($_POST["password"] == $confirmPassword) {
-            // Prepare a query
             $sql = "INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?)";
 
             // Prepare a statement (mysqli_prepare)

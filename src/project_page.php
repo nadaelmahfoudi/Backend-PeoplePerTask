@@ -1,6 +1,6 @@
 <?php 
-include'connection_data.php';
-include_once'session.php';
+include 'connection_data.php';
+include 'session.php';
 
 ?>
 <!doctype html>
@@ -26,38 +26,33 @@ include_once'session.php';
 <body class="overflow-x-hidden bg-slate-100 dark:bg-slate-900 ">
 
 <?php include "header_site.php"; ?>
-    <div class="ma-boite dark:bg-slate-800">
-    <ul class="flex flex-col h-full py-3 overflow-hidden text-center">
-        <?php
-    
-            $query = "SELECT title,description FROM projects";
+    <div class="ma-boite dark:bg-slate-600">
+    <ul class="flex flex-col h-full py-3 overflow-hidden text-center dark:text-white ">
+    <?php
+
+
+        if (isset($_GET['id'])) {
+            $id_project = $_GET['id'];
+
+            $query = "SELECT * FROM projects WHERE id= $id_project";
+
             $result = mysqli_query($conn, $query);
+
+            $row = mysqli_fetch_assoc($result);
+            if ($row) {
+        ?>
+            <li><h1 class="border-t-2 border-b-2 py-4 font-semibold text-lg font-serif px-6 "><?php echo $row['title'] ?></h1></li>
+            <li><p class="border-t-2 border-b-2 py-4  text-lg font-serif px-6 "><?php echo $row['description'] ?></p></li>
             
-            if (!$result) {
-                die("Query failed: " . mysqli_error($conn));
-            }else{
-              while($row =mysqli_fetch_assoc($result)){
-        
-                ?>
-            <li><h1 class="border-t-2 border-b-2 py-4 font-semibold text-lg font-serif px-6 dark:"><?php echo $row['title'] ?></h1></li>
-            <li><h1 class="border-t-2 border-b-2 py-4  text-lg font-serif px-6"><?php echo $row['description'] ?></h1></li>
             <div>
             <button class="btn-quit bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                           <a href="index.php">Quitter</a>
                       </button>
-            <?php
-              if(isset($_SESSION['role'])):
-                  if ($_SESSION['role'] == 'freelancer') {
-                      ?>
-                      <button class="btn-offer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-                          <a href="add_offers.php">Add Offers</a>
-                      </button>
-            <?php } endif;?>
             </div>
             
                 <?php }}?>
     </div>
-    
+ 
   <script src="../javascript/jquery.js"></script>
   <script src="../javascript/script.js"></script>
 </body>
