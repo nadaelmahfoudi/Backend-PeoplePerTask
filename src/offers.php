@@ -2,7 +2,7 @@
 include("session.php");
 include("script.php");
 include "connection_data.php";
-var_dump($_SESSION);
+// var_dump($_SESSION);
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -12,9 +12,9 @@ $role = $_SESSION['role'];
 
 if ($role == 'freelancer') {
     $user_id = $_SESSION['user_id'];
-    $sql = "SELECT id,montant,deadline,status FROM offers WHERE user_id = $user_id";
+    $sql = "SELECT id, montant, deadline, status, client_response FROM offers WHERE user_id = $user_id";
 } else {
-    $sql = "SELECT id, montant, deadline, status FROM offers";
+    $sql = "SELECT id, montant, deadline, status, client_response FROM offers";
 }
 
 $result = $conn->query($sql);
@@ -69,6 +69,7 @@ if (!$result) {
                         echo "<td class='py-2 px-4 border-b dark:text-white'>" . $row["montant"] . "</td>";
                         echo "<td class='py-2 px-4 border-b dark:text-white'>" . $row["deadline"] . "</td>";
                         echo "<td class='py-2 px-4 border-b dark:text-white'>" . $row["status"] . "</td>";
+                        echo "<td class='py-2 px-4 border-b dark:text-white'>" . ($row["client_response"] ? 'Accepté' : 'Rejeté') . "</td>";
                         echo "<td class='py-2 px-4 border-b text-black'>
                             <span class='py-1'>
                                 <form method='post' action='delete_offers.php' onsubmit='return confirmDelete(" . $row["id"] . ");'>

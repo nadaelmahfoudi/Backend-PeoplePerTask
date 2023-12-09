@@ -597,14 +597,15 @@ include_once'session.php';
               <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                           <a href="detail_projet.php?id=<?php echo $row['id']; ?>">Read More !</a>
                       </button>
+                      <?php
+              if (isset($_SESSION['role']) && $_SESSION['role'] == 'freelancer') {
+              ?>
+              <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                  <a href="add_offers.php?project_id=<?php echo $row['id']; ?>">Apply Now</a>
+              </button>
               <?php
-              if(isset($_SESSION['role'])):
-                  if ($_SESSION['role'] == 'freelancer') {
-                      ?>
-                      <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-                          <a href="add_offers.php">Apply Now</a>
-                      </button>
-                      <?php } endif;?>
+              }
+              ?>
               </div>
               
             </div>
@@ -817,7 +818,7 @@ include_once'session.php';
   <?php include "footer.php"; ?>
   <!-- end Footer -->
 
-  
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="../javascript/swiper-bundle.min.js"></script>
   <script src="../javascript/jquery.js"></script>
   <script src="../javascript/script.js"></script>

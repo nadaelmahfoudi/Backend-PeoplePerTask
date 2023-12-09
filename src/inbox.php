@@ -1,13 +1,12 @@
 <?php
 include "connection_data.php";
+include "session.php";
 
-// Fetch projects with their associated categories using INNER JOIN
 $sql = "SELECT projects.id, projects.title, projects.description, categories.categoryName
         FROM projects
         LEFT JOIN categories ON projects.categorie_id = categories.id";
 $result = $conn->query($sql);
 
-// Fetch categories from the database
 $categoryQuery = "SELECT * FROM categories";
 $categoryResult = $conn->query($categoryQuery);
 
@@ -15,7 +14,6 @@ $categories = [];
 while ($row = $categoryResult->fetch_assoc()) {
     $categories[] = $row;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -62,34 +60,74 @@ while ($row = $categoryResult->fetch_assoc()) {
         <div class="py-4">
             
             <ul class="flex flex-col">
-                <?php
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<li class="title flex flex-col border-b-2   h-20  sm:h-14 overflow-y-hidden px-2 ">
-                                    <div class="w-full flex gap-5 items-center">
-                                        <div class="flex-grow text-left">
-                                            <span class="w-1/2 email_user text-xs sm:text-sm">' . $row["title"] . '</span>
-                                        </div>
-                                        <div class="flex-grow text-left">
-                                            <span class="w-1/2 email_user text-xs sm:text-sm">' . $row["description"] . '</span>
-                                        </div>
-                                        <div class="flex-grow text-left">
-                                            <span class="w-1/2 email_user text-xs sm:text-sm">' . $row["categoryName"] . '</span>
-                                        </div>
-                                        <span class="py-1">
-                                            <form method="post" action="delete_projet.php" onsubmit="return confirmDelete();">
-                                                <input type="hidden" name="id" value="' . $row["id"] . '">
-                                                <button type="submit" name="submit" class="text-red-500 ml-4 cursor-pointer btn_dele_message_inbox text-xs sm:text-sm">DELETE</button>
-                                            </form>
-                                            <a href="editproject.php?id=' . $row["id"] . '" class="text-blue-500 ml-4 cursor-pointer btn_dele_message_inbox text-xs sm:text-sm">EDIT</a>
-                                        </span>
-                                    </div>
-                                </li>';
-                    }
-                } else {
-                    echo "<p>Aucun projet trouvé</p>";
-                }
-                ?>
+            <?php
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $project_id = $row["id"];
+        
+        echo '<li class="title flex flex-col border-b-2 h-20 sm:h-14 overflow-y-hidden px-2 ">
+                <!-- Project information -->
+                <div class="w-full flex gap-5 items-center">
+                    <div class="flex-grow text-left">
+                        <span class="w-1/2 email_user text-xs sm:text-sm">' . $row["title"] . '</span>
+                    </div>
+                    <div class="flex-grow text-left">
+                        <span class="w-1/2 email_user text-xs sm:text-sm">' . $row["description"] . '</span>
+                    </div>
+                    <div class="flex-grow text-left">
+                        <span class="w-1/2 email_user text-xs sm:text-sm">' . $row["categoryName"] . '</span>
+                    </div>
+                    <span class="py-1">
+                        <!-- Actions for the project -->
+                        <form method="post" action="delete_projet.php" onsubmit="return confirmDelete();">
+                            <input type="hidden" name="id" value="' . $row["id"] . '">
+                            <button type="submit" name="submit" class="text-red-500 ml-4 cursor-pointer btn_dele_message_inbox text-xs sm:text-sm">DELETE</button>
+                        </form>
+                        <a href="editproject.php?id=' . $row["id"] . '" class="text-blue-500 ml-4 cursor-pointer btn_dele_message_inbox text-xs sm:text-sm">EDIT</a>
+                    </span>
+                </div>
+                </li>';
+    
+        echo '<li class="offer-container">
+                <!-- Offer information -->
+                <div class="offers-container">';
+        
+        $query_offers = "SELECT o.*, u.first_name,u.last_name FROM offers o
+                         JOIN users u ON o.user_id = u.id
+                         WHERE o.project_id = ?";
+        $stmt_offers = $conn->prepare($query_offers);
+        $stmt_offers->bind_param("i", $project_id);
+        $stmt_offers->execute();
+        $result_offers = $stmt_offers->get_result();
+        
+        echo "<ul>";
+        while ($offer = $result_offers->fetch_assoc()) {
+            echo '<li >Voila l offre de ' . $offer['first_name'] . $offer['last_name'].' - Montant: ' . $offer['montant'] . ', Deadline: ' . $offer['deadline'] . '</li>';
+            
+            echo '<div class="flex gap-2 mt-2">
+            <form method="post" action="update_response.php">
+            <input type="hidden" name="offer_id" value="'  .$offer['id']. '?>">
+            <button type="submit" name="accept" class="bg-green-500 text-white px-3 py-1 rounded-md">Accept</button>
+            <button type="submit" name="reject" class="bg-red-500 text-white px-3 py-1 rounded-md">Reject</button>
+        </form>
+                  </div>';
+        }
+        
+        echo "</ul>";
+        
+        echo '</div>
+                </li>';
+        
+        $stmt_offers->close();
+    }
+    
+} else {
+    echo "<p>Aucun projet trouvé</p>";
+}
+?>
+
+
+
                 <li class="title flex flex-col border-b-2 py-3  h-20  sm:h-14 overflow-y-hidden px-2 ">
                     <div class="w-full flex gap-5 items-center">
                         <a href="addproject.php" class="bg-custom-green text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">ADD</a>
@@ -104,7 +142,7 @@ while ($row = $categoryResult->fetch_assoc()) {
             return confirm("Voulez-vous vraiment supprimer ce projet?");
         }
     </script>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="../javascript/jquery.js"></script>
     <script src="../javascript/dashboard.js"></script>
     <script src="../javascript/script.js"></script>

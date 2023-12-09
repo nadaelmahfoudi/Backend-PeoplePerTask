@@ -2,6 +2,12 @@
 include("connection_data.php");
 include("session.php");
 
+if (isset($_GET['project_id'])) {
+    $project_id = $_GET['project_id'];
+} else {
+    die("Project ID not provided.");
+}
+
 if (isset($_POST["submit"])) {
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
@@ -9,27 +15,35 @@ if (isset($_POST["submit"])) {
         $deadline = $_POST["deadline"];
         $status = $_POST["status"];
 
-        $sql = "INSERT INTO `offers`(`montant`, `deadline`, `status`, `user_id`) VALUES (?, ?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $sql);
+        $checkProjectQuery = "SELECT id FROM projects WHERE id = ?";
+        $stmtCheckProject = mysqli_prepare($conn, $checkProjectQuery);
+        mysqli_stmt_bind_param($stmtCheckProject, "i", $project_id);
+        mysqli_stmt_execute($stmtCheckProject);
+        mysqli_stmt_store_result($stmtCheckProject);
 
-        mysqli_stmt_bind_param($stmt, "dssi", $montant, $deadline, $status, $user_id);
+        if (mysqli_stmt_num_rows($stmtCheckProject) > 0) {
+            $sql = "INSERT INTO `offers`(`montant`, `deadline`, `status`, `user_id`, `project_id`) VALUES (?, ?, ?, ?, ?)";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "dssii", $montant, $deadline, $status, $user_id, $project_id);
+            $result = mysqli_stmt_execute($stmt);
 
-        $result = mysqli_stmt_execute($stmt);
+            if ($result) {
+                header("Location: offers.php");
+            } else {
+                echo "Failed: " . mysqli_error($conn);
+            }
 
-        if ($result) {
-            header("Location: offers.php");
+            mysqli_stmt_close($stmt);
         } else {
-            echo "Failed: " . mysqli_error($conn);
+            echo "Le projet avec l'ID $project_id n'existe pas.";
         }
 
-        mysqli_stmt_close($stmt);
+        mysqli_stmt_close($stmtCheckProject);
     } else {
         echo "L'utilisateur n'est pas connecté.";
     }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,8 +67,8 @@ if (isset($_POST["submit"])) {
             <p class="text-muted">Complete the form bellow to add a new offer </p>
         </div>
         <div class=" container d-flex justify-content-center">
-            <form action="" method= "POST" style="width:50vw; min-width:300px">
-                   
+        <form action="" method= "POST" style="width:50vw; min-width:300px">
+        <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
                     <div class="mb-3" >
                         <label for="form-label">montant:</label>
                         <input type="text" class="form-control" name="montant" placeholder="00">
