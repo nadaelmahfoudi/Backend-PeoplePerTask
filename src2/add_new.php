@@ -1,23 +1,20 @@
 <?php 
-    include ("connexion_data.php");
+include 'connexion_data.php';
+if(isset($_POST['submit'])){
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $gender = $_POST['gender'];
 
-    if(isset($_POST["submit"])){
-        $first_name = $_POST["first_name"];
-        $last_name = $_POST["last_name"];
-        $email = $_POST["email"];
-        $gender = $_POST["gender"];
+    $sql = "INSERT INTO users VALUES (null, '$first_name','$last_name','$email','$gender')";
+    $result = mysqli_query($conn, $sql);
+    if($result){
+        header("Location: index3.php");
+    }else{
+        echo "failed : ".mysqli_error($conn);
+    }
+}
 
-        $sql = "INSERT INTO `users`(`id`, `first_name`, `last_name`, `email`, `gender`) VALUES
-         (NULL,'$first_name','$last_name','$email','$gender')";
-
-         $result = mysqli_query($conn , $sql);
-         if($result){
-            header("Location: index3.php");
-         }else{
-            echo"failed:".mysqli_error($conn);
-         }
-        }
-    
 ?>
 
 

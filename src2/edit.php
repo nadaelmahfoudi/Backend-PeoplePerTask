@@ -1,23 +1,22 @@
 <?php 
-    include ("connexion_data.php");
-    $id = $_GET["id"];
-    if(isset($_POST["submit"])){
-        $first_name = $_POST["first_name"];
-        $last_name = $_POST["last_name"];
-        $email = $_POST["email"];
-        $gender = $_POST["gender"];
+include 'connexion_data.php';
+$id = $_GET['id'];
+if(isset($_POST['submit'])){
 
-        $sql = "UPDATE `users` SET `first_name`='$first_name',`last_name`='$last_name',
-        `email`='$email',`gender`='$gender' WHERE id= $id";
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $gender = $_POST['gender'];
 
-         $result = mysqli_query($conn , $sql);
-         if($result){
-            header("Location: index3.php");
-         }else{
-            echo"failed:".mysqli_error($conn);
-         }
-        }
-    
+    $sql = "UPDATE users SET first_name='$first_name',last_name='$last_name',email='$email',gender='$gender' WHERE id=$id";
+    $result = mysqli_query($conn, $sql);
+    if($result){
+        header("Location: index3.php");
+    }else{
+        echo "failed : ".mysqli_error($conn);
+    }
+
+}
 ?>
 
 
@@ -40,12 +39,13 @@
             <h3>Edit user information</h3>
             <p class="text-muted">click update after changing info </p>
         </div>
-    <?php  
-    $id = $_GET["id"];
-    $sql = "SELECT * FROM users WHERE id = $id LIMIT 1";
-    $result = mysqli_query($conn , $sql);
-    $row = mysqli_fetch_assoc($result);
-    ?>
+        <?php 
+        $id = $_GET["id"];
+        $sql = "SELECT * FROM users WHERE id=$id LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        ?>
+   
 
         <div class=" container d-flex justify-content-center">
             <form action="" method= "POST" style="width:50vw; min-width:300px">
@@ -53,25 +53,25 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="form-label">First name:</label>
-                        <input type="text" class="form-control" name="first_name" value= "<?php echo $row["first_name"] ?>">
+                        <input type="text" class="form-control" name="first_name" value= "<?php echo $row['first_name'] ?>">
                     </div>
                     <div class="col">
                         <label for="form-label">Last name:</label>
-                        <input type="text" class="form-control" name="last_name" value= "<?php echo $row["last_name"] ?>">
+                        <input type="text" class="form-control" name="last_name" value= "<?php echo $row['last_name'] ?>">
                     </div>
                 </div>
 
                     <div class="mb-3" >
                         <label for="form-label">Email:</label>
-                        <input type="email" class="form-control" name="email" value= "<?php echo $row["email"] ?>">
+                        <input type="email" class="form-control" name="email" value= "<?php echo $row['email'] ?>">
                     </div>
 
                     <div class=" form-group mb-3" >
                         <label >Gender:</label>&nbsp;
-                        <input type="radio" class="form-check-input" name="gender" id="male" value="male" <?php echo($row['gender']== "male")? "checked":""; ?> >
+                        <input type="radio" class="form-check-input" name="gender" id="male" value="male"<?php echo ($row['gender'] == "male")?"checked":"";?> >
                         <label for="male" class="form-input-label">Male</label>
                         &nbsp;
-                        <input type="radio" class="form-check-input" name="gender" id="female" value="female" <?php echo($row['gender']== "female")? "checked":""; ?>>
+                        <input type="radio" class="form-check-input" name="gender" id="female" value="female"<?php echo ($row['gender'] == "female")?"checked":"";?> >
                         <label for="female" class="form-input-label">Female</label>
                     </div>
 

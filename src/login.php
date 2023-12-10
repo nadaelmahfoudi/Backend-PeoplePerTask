@@ -121,24 +121,3 @@ require 'header_site.php';
 </html>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

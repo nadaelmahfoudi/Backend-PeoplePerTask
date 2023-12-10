@@ -1,7 +1,5 @@
 <?php 
-    include ("connexion_data.php");
-
-
+include 'connexion_data.php';
 ?>
 
 
@@ -33,12 +31,12 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-                    include ("connexion_data.php");
-                    $sql = "SELECT * FROM users ";
-                    $result = mysqli_query($conn, $sql);
-                    while ($row = mysqli_fetch_assoc($result)){
-                        ?>
+                <?php 
+                $sql = "SELECT * FROM users";
+                $result = mysqli_query($conn,$sql);
+                while($row = mysqli_fetch_assoc($result)){
+                    ?>
+                
                         <tr>
                         <td><?php echo $row['id'] ?></td>
                         <td><?php echo $row['first_name'] ?></td>
@@ -46,14 +44,13 @@
                         <td><?php echo $row['email'] ?></td>
                         <td><?php echo $row['gender'] ?></td>
                         <td>
-                        <a href="edit.php?id=<?php echo $row['id']?>" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 fe-3"></i></a>
-                        <a href="delete.php?id=<?php echo $row['id']?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
+                        <a href="edit.php?id=<?php echo $row['id'] ?>" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 fe-3"></i></a>
+                        <a href="delete.php?id=<?php echo $row['id'] ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
                     </td>
                 </tr>
-
-                <?php
-                    }
-                ?>
+                    <?php 
+                    }?>
+                
                 
                 
             </tbody>
@@ -65,3 +62,6 @@
     
     </body>
 </html>
+
+
+

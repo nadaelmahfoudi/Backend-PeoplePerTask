@@ -431,13 +431,16 @@ include_once'session.php';
       <div class="carousal h-full">
         <ul class="flex flex-row h-full py-3 overflow-hidden">
         <?php
-            $query = " SELECT first_name,last_name FROM users WHERE  role='freelancer'";
-            $result = mysqli_query($conn, $query);
+          $query = "SELECT s.skill, u.first_name, u.last_name FROM skills s
+          INNER JOIN users u ON s.user_id = u.id
+          WHERE u.role = 'freelancer'";
 
-            if (!$result){
-              die("query failed".mysqli_error($conn));
-            }else{
-              while($row =mysqli_fetch_assoc($result)){
+          $result = mysqli_query($conn, $query);
+
+          if (!$result) {
+              die("Query failed: " . mysqli_error($conn));
+          } else {
+              while ($row = mysqli_fetch_assoc($result)) {
                 ?>
           <li
             class="freelancer-card h-full mr-2 border-2 dark:border-slate-700 drop-shadow-md mb-1 cursor-pointer w-3/4 md:w-2/5 lg:w-1/5 shrink-0 rounded-xl overflow-hidden ">
@@ -445,7 +448,9 @@ include_once'session.php';
               <div class="w-full mb-3">
                 <img class="photo rounded-full w-7/12 m-auto" src="" alt="freelancerPhoto">
                 <h3 class="title text-gray-600 dark:text-slate-200 text-center font-bold mt-1 mb-2"><?php echo $row['first_name'] . ' ' . $row['last_name']?></h3>
-                <p class="job text-justify text-md leading-4 text-gray-600 dark:text-slate-300"></p>
+               
+                <p class="job text-justify text-md leading-4 text-gray-600 dark:text-slate-300"><?php echo $row['skill'] ?></p>
+               
               </div>
 
               <div class="flex flex-row justify-start gap-2">
@@ -804,10 +809,6 @@ include_once'session.php';
                         <?php 
                          endwhile; endif;
                         ?>
-                      
-
-        
-
         
       </div>
     </div>
